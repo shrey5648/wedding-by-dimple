@@ -1,0 +1,64 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const services = [
+  { title: "Wedding Photography", copy: "Elegant storytelling through timeless photographs that preserve every emotion of your wedding day.", seed: "svc-1" },
+  { title: "Cinematic Wedding Films", copy: "Beautiful storytelling with cinematic visuals and emotional music.", seed: "svc-2" },
+  { title: "Pre Wedding", copy: "Celebrate your journey together with creative concepts and stunning outdoor or destination shoots.", seed: "svc-3" },
+  { title: "Engagement", copy: "Elegant coverage for your special beginning.", seed: "svc-4" },
+  { title: "Haldi & Mehendi", copy: "Colourful moments, joyful traditions, and candid laughter captured naturally.", seed: "svc-5" },
+  { title: "Mehendi Ceremony", copy: "Every intricate detail, every smile, and every celebration documented naturally.", seed: "svc-6" },
+  { title: "Sangeet & Musical Night", copy: "Energetic performances, dancing, and unforgettable celebrations preserved forever.", seed: "svc-7" },
+  { title: "Bridal Portraits", copy: "Grace, elegance, confidence, and timeless beauty in every frame.", seed: "svc-8" },
+  { title: "Couple Portrait Session", copy: "Romantic portraits that reflect your love, connection, and personalities.", seed: "svc-9" },
+  { title: "Baby Shower", copy: "Celebrating the beginning of a beautiful journey.", seed: "svc-10" },
+  { title: "Maternity Photography", copy: "Capturing the beauty of motherhood.", seed: "svc-11" },
+  { title: "Family Events", copy: "Birthday, Anniversary, Naming Ceremony and all special occasions.", seed: "svc-12" },
+];
+---
+
+<Layout
+  title="Services"
+  description="Wedding photography, cinematic films, pre-wedding shoots, and more — services offered by Wedding by Dimple."
+>
+  <section class="bg-ink px-6 pb-16 pt-40 text-center text-ivory md:px-10">
+    <p class="mb-3 text-xs uppercase tracking-[0.3em] text-marigold-light">Our Services</p>
+    <h1 class="mx-auto max-w-2xl font-display text-4xl leading-tight sm:text-5xl">
+      Coverage for every moment of your celebration
+    </h1>
+  </section>
+
+  <section class="px-6 py-20 md:px-10">
+    <div class="mx-auto grid max-w-6xl gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        services.map((s) => (
+          <div>
+            <img
+              src={`https://picsum.photos/seed/${s.seed}/600/440`}
+              alt={s.title}
+              class="aspect-[4/3] w-full rounded-sm object-cover"
+              loading="lazy"
+              width="600"
+              height="440"
+            />
+            <p class="mt-4 font-display text-xl">{s.title}</p>
+            <p class="mt-2 text-sm leading-relaxed text-ink/70">{s.copy}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="bg-blush px-6 py-20 text-center md:px-10">
+    <h2 class="font-display text-3xl">Not sure which package fits your day?</h2>
+    <p class="mx-auto mt-3 max-w-md text-ink/70">
+      Every wedding is unique — we build packages around your requirements.
+    </p>
+    <a
+      href="/contact"
+      class="mt-6 inline-block rounded-full bg-wine px-8 py-3 text-sm uppercase tracking-[0.14em] text-ivory transition hover:bg-ink"
+    >
+      Talk to Us
+    </a>
+  </section>
+</Layout>

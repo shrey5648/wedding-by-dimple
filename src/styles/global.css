@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@import "@fontsource-variable/fraunces/full.css";
+@import "@fontsource-variable/inter";
+
+@theme {
+  /* Color: warm charcoal ground, turmeric gold + bridal wine as the two
+     accents pulled from haldi and the bridal palette, ivory/blush for
+     light sections, a muted mehendi sage used sparingly. */
+  --color-ink: #171310;
+  --color-ink-soft: #241d18;
+  --color-ivory: #f5efe4;
+  --color-ivory-dim: #ece2d1;
+  --color-marigold: #c6852b;
+  --color-marigold-light: #e0a94f;
+  --color-wine: #5a1b2e;
+  --color-wine-light: #7a2b42;
+  --color-blush: #e7d2c4;
+  --color-sage: #6b7259;
+
+  --font-display: "Fraunces Variable", ui-serif, Georgia, serif;
+  --font-body: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --font-weight-display: 480;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-ivory);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+.font-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+}
+
+/* Signature flourish divider: a thin garland line-art motif,
+   drawn on scroll into view. Respects reduced-motion. */
+.flourish path {
+  stroke-dasharray: 340;
+  stroke-dashoffset: 340;
+  transition: stroke-dashoffset 1.4s ease;
+}
+.flourish.is-visible path {
+  stroke-dashoffset: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .flourish path {
+    transition: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Focus visibility kept intentional, not suppressed */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-marigold);
+  outline-offset: 3px;
+}

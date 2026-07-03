@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://weddingbydimple.com/sitemap.xml

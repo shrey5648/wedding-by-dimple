@@ -1,0 +1,163 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Contact"
+  description="Get in touch with Wedding by Dimple to check availability and discuss your wedding photography and film package."
+>
+  <section class="bg-ink px-6 pb-16 pt-40 text-center text-ivory md:px-10">
+    <p class="mb-3 text-xs uppercase tracking-[0.3em] text-marigold-light">Contact</p>
+    <h1 class="mx-auto max-w-2xl font-display text-4xl leading-tight sm:text-5xl">
+      Let's create something beautiful together.
+    </h1>
+    <p class="mx-auto mt-4 max-w-md text-ivory/75">
+      Your wedding deserves more than photographs. It deserves a story that
+      lasts forever.
+    </p>
+  </section>
+
+  <section class="px-6 py-20 md:px-10">
+    <div class="mx-auto grid max-w-5xl gap-16 md:grid-cols-[1fr_1.2fr]">
+      <div>
+        <p class="mb-6 font-display text-2xl">Reach us directly</p>
+        <ul class="space-y-5 text-ink/80">
+          <li class="flex items-start gap-3">
+            <span>📍</span>
+            <span>Available Across India</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span>📞</span>
+            <a href="tel:+916353739229" class="hover:text-wine">+91 63537 39229 (Call / WhatsApp)</a>
+          </li>
+          <li class="flex items-start gap-3">
+            <span>📧</span>
+            <a href="mailto:dimplekacha2017@gmail.com" class="break-all hover:text-wine">
+              dimplekacha2017@gmail.com
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <form id="contact-form" class="space-y-5">
+        <!-- Get a free access key at https://web3forms.com and paste it
+             below — this lets the form submit without any backend. -->
+        <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
+        <input type="checkbox" name="botcheck" class="hidden" style="display:none" />
+
+        <div>
+          <label for="name" class="mb-1 block text-xs uppercase tracking-[0.14em] text-ink/60">
+            Full Name
+          </label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required
+            class="w-full border-0 border-b border-ink/20 bg-transparent py-2 focus:border-wine focus:outline-none"
+          />
+        </div>
+
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div>
+            <label for="email" class="mb-1 block text-xs uppercase tracking-[0.14em] text-ink/60">
+              Email
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              class="w-full border-0 border-b border-ink/20 bg-transparent py-2 focus:border-wine focus:outline-none"
+            />
+          </div>
+          <div>
+            <label for="phone" class="mb-1 block text-xs uppercase tracking-[0.14em] text-ink/60">
+              Phone
+            </label>
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              class="w-full border-0 border-b border-ink/20 bg-transparent py-2 focus:border-wine focus:outline-none"
+            />
+          </div>
+        </div>
+
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div>
+            <label for="event_date" class="mb-1 block text-xs uppercase tracking-[0.14em] text-ink/60">
+              Wedding Date
+            </label>
+            <input
+              id="event_date"
+              name="event_date"
+              type="date"
+              class="w-full border-0 border-b border-ink/20 bg-transparent py-2 focus:border-wine focus:outline-none"
+            />
+          </div>
+          <div>
+            <label for="location" class="mb-1 block text-xs uppercase tracking-[0.14em] text-ink/60">
+              Location
+            </label>
+            <input
+              id="location"
+              name="location"
+              type="text"
+              class="w-full border-0 border-b border-ink/20 bg-transparent py-2 focus:border-wine focus:outline-none"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="message" class="mb-1 block text-xs uppercase tracking-[0.14em] text-ink/60">
+            Tell us about your day
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            rows="4"
+            class="w-full border-0 border-b border-ink/20 bg-transparent py-2 focus:border-wine focus:outline-none"
+          ></textarea>
+        </div>
+
+        <button
+          type="submit"
+          class="rounded-full bg-wine px-8 py-3 text-sm uppercase tracking-[0.14em] text-ivory transition hover:bg-ink"
+        >
+          Send Enquiry
+        </button>
+
+        <p id="form-status" class="text-sm" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const form = document.getElementById("contact-form") as HTMLFormElement;
+  const status = document.getElementById("form-status");
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (status) status.textContent = "Sending...";
+
+    const formData = new FormData(form);
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: formData,
+      });
+      const result = await res.json();
+      if (result.success) {
+        if (status) status.textContent = "Thank you — we'll be in touch soon.";
+        form.reset();
+      } else {
+        if (status) status.textContent = "Something went wrong. Please try again or call us directly.";
+      }
+    } catch {
+      if (status) status.textContent = "Something went wrong. Please try again or call us directly.";
+    }
+  });
+</script>

@@ -1,0 +1,266 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Flourish from "../components/Flourish.astro";
+
+const whyChooseUs = [
+  "Emotion First",
+  "Candid & Traditional Photography",
+  "Cinematic Wedding Films",
+  "Drone Coverage",
+  "Creative Portrait Sessions",
+  "Premium Album Design",
+  "Professional Editing",
+  "Fast Delivery",
+  "Experienced Professional Team",
+  "Natural Colour Grading",
+  "Personalized Client Experience",
+  "100% Client Satisfaction",
+];
+
+const process = [
+  { n: "01", title: "Consultation", copy: "We understand your vision and requirements." },
+  { n: "02", title: "Planning", copy: "We prepare every detail before your event." },
+  { n: "03", title: "Capture", copy: "Every emotion, ritual, smile, and celebration is documented naturally." },
+  { n: "04", title: "Editing", copy: "Each photograph and film is professionally edited with attention to colour, emotion, and storytelling." },
+  { n: "05", title: "Delivery", copy: "Albums, films and memories delivered with care." },
+];
+
+const numbers = [
+  { value: "500+", label: "Weddings Captured" },
+  { value: "1000+", label: "Happy Families" },
+  { value: "8+", label: "Years Experience" },
+  { value: "Pan India", label: "Available Across India" },
+];
+
+const testimonials = [
+  "The photographs brought tears to our eyes. Every emotion was captured beautifully.",
+  "Professional team, amazing creativity, and unforgettable memories.",
+  "The cinematic film felt like a movie of our love story.",
+  "The cinematic film was beyond anything we imagined. Every family member loved it.",
+  "Our wedding film still gives us goosebumps every time we watch it.",
+];
+---
+
+<Layout
+  title="Home"
+  description="Wedding by Dimple — candid and cinematic wedding photography and films, available across India."
+>
+  <!-- Hero: the thesis. A full-bleed frame from a real wedding, the line
+       that defines the brand, and nothing competing for attention. -->
+  <section class="relative flex min-h-[92vh] items-end overflow-hidden bg-ink">
+    <img
+      src="https://picsum.photos/seed/wedding-hero/1800/1200"
+      alt="Bride and groom candid moment"
+      class="absolute inset-0 h-full w-full object-cover opacity-80"
+      width="1800"
+      height="1200"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-ink/10"></div>
+
+    <div class="relative z-10 mx-auto max-w-4xl px-6 pb-20 pt-40 text-center md:px-10">
+      <p class="mb-5 text-xs uppercase tracking-[0.3em] text-marigold-light">
+        Wedding Photography &amp; Films · India
+      </p>
+      <h1 class="font-display text-4xl leading-[1.1] text-ivory sm:text-5xl md:text-6xl">
+        Capturing Love.<br /> Preserving Forever.
+      </h1>
+      <p class="mx-auto mt-6 max-w-xl text-balance text-ivory/80">
+        We don't just capture weddings. We preserve emotions forever.
+      </p>
+      <p class="mx-auto mt-3 max-w-md font-display text-lg italic text-ivory/60">
+        "We arrive as your photographers, but we leave as a part of your family."
+      </p>
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+        <a
+          href="/portfolio"
+          class="rounded-full bg-marigold-light px-7 py-3 text-sm uppercase tracking-[0.14em] text-ink transition hover:bg-ivory"
+        >
+          View Portfolio
+        </a>
+        <a
+          href="/contact"
+          class="rounded-full border border-ivory/40 px-7 py-3 text-sm uppercase tracking-[0.14em] text-ivory transition hover:border-ivory"
+        >
+          Enquire Now
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Real Stories teaser -->
+  <section class="px-6 py-24 md:px-10">
+    <div class="mx-auto max-w-6xl">
+      <div class="grid items-center gap-12 md:grid-cols-2">
+        <div>
+          <p class="mb-3 text-xs uppercase tracking-[0.3em] text-wine">Real Stories</p>
+          <h2 class="font-display text-3xl leading-tight sm:text-4xl">
+            Every smile, every tear, every ritual — remembered.
+          </h2>
+          <p class="mt-5 max-w-md leading-relaxed text-ink/70">
+            We create timeless wedding photographs and cinematic films that
+            tell your story exactly as it happened.
+          </p>
+          <a
+            href="/real-stories"
+            class="mt-6 inline-block border-b border-wine text-sm uppercase tracking-[0.14em] text-wine"
+          >
+            Read Real Stories &rarr;
+          </a>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <img
+            src="https://picsum.photos/seed/story-1/500/650"
+            alt="Wedding ritual candid moment"
+            class="h-full w-full rounded-sm object-cover"
+            loading="lazy"
+            width="500"
+            height="650"
+          />
+          <img
+            src="https://picsum.photos/seed/story-2/500/400"
+            alt="Couple laughing candidly"
+            class="mt-8 h-full w-full rounded-sm object-cover"
+            loading="lazy"
+            width="500"
+            height="400"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="py-4"><Flourish /></div>
+
+  <!-- Films -->
+  <section class="bg-ink px-6 py-24 text-ivory md:px-10">
+    <div class="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-2">
+      <img
+        src="https://picsum.photos/seed/films-still/800/560"
+        alt="Still frame from a cinematic wedding film"
+        class="aspect-video w-full rounded-sm object-cover"
+        loading="lazy"
+        width="800"
+        height="560"
+      />
+      <div>
+        <p class="mb-3 text-xs uppercase tracking-[0.3em] text-marigold-light">Films</p>
+        <h2 class="font-display text-3xl leading-tight sm:text-4xl">
+          Relive Your Wedding Through Cinema
+        </h2>
+        <p class="mt-5 max-w-md leading-relaxed text-ivory/75">
+          Our cinematic wedding films combine storytelling, music, and
+          artistic visuals to create memories you'll treasure forever. From
+          intimate ceremonies to grand celebrations, every detail is captured
+          with creativity, elegance, and authenticity.
+        </p>
+        <p class="mt-4 max-w-md font-display italic text-ivory/60">
+          At Wedding by Dimple, every frame is captured with heart, passion,
+          and purpose.
+        </p>
+        <a
+          href="/films"
+          class="mt-6 inline-block border-b border-marigold-light text-sm uppercase tracking-[0.14em] text-marigold-light"
+        >
+          Watch Our Films &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="px-6 py-24 md:px-10">
+    <div class="mx-auto max-w-6xl">
+      <p class="mb-3 text-center text-xs uppercase tracking-[0.3em] text-wine">Why Choose Us</p>
+      <h2 class="mx-auto max-w-2xl text-center font-display text-3xl leading-tight sm:text-4xl">
+        Twelve reasons couples trust us with their day
+      </h2>
+
+      <ul class="mt-14 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 md:grid-cols-4">
+        {
+          whyChooseUs.map((item) => (
+            <li class="border-t border-ink/10 pt-4 text-sm leading-snug text-ink/80">
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Our Process — numbered because it's a real, ordered sequence -->
+  <section class="bg-blush px-6 py-24 md:px-10">
+    <div class="mx-auto max-w-6xl">
+      <p class="mb-3 text-xs uppercase tracking-[0.3em] text-wine">Our Process</p>
+      <h2 class="max-w-xl font-display text-3xl leading-tight sm:text-4xl">
+        From first conversation to final delivery
+      </h2>
+
+      <ol class="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
+        {
+          process.map((step) => (
+            <li>
+              <span class="font-display text-3xl text-marigold">{step.n}</span>
+              <p class="mt-3 font-display text-lg">{step.title}</p>
+              <p class="mt-2 text-sm leading-relaxed text-ink/70">{step.copy}</p>
+            </li>
+          ))
+        }
+      </ol>
+
+      <p class="mx-auto mt-16 max-w-xl text-center font-display text-xl italic leading-snug">
+        "We believe photographs should make you feel something — years from
+        today, exactly as you lived it."
+      </p>
+    </div>
+  </section>
+
+  <!-- Numbers -->
+  <section class="bg-ink px-6 py-20 text-ivory md:px-10">
+    <div class="mx-auto grid max-w-6xl grid-cols-2 gap-10 text-center md:grid-cols-4">
+      {
+        numbers.map((n) => (
+          <div>
+            <p class="font-display text-4xl text-marigold-light sm:text-5xl">{n.value}</p>
+            <p class="mt-2 text-xs uppercase tracking-[0.14em] text-ivory/60">{n.label}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="px-6 py-24 md:px-10">
+    <div class="mx-auto max-w-4xl text-center">
+      <p class="mb-3 text-xs uppercase tracking-[0.3em] text-wine">Testimonials</p>
+      <h2 class="font-display text-3xl leading-tight sm:text-4xl">In their words</h2>
+
+      <div class="mt-14 grid gap-10 sm:grid-cols-2">
+        {
+          testimonials.slice(0, 4).map((t) => (
+            <blockquote class="text-left">
+              <p class="text-marigold">★★★★★</p>
+              <p class="mt-3 leading-relaxed text-ink/80">"{t}"</p>
+            </blockquote>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="relative overflow-hidden bg-wine px-6 py-28 text-center text-ivory md:px-10">
+    <h2 class="mx-auto max-w-xl font-display text-3xl leading-tight sm:text-4xl">
+      Let's create something beautiful together.
+    </h2>
+    <p class="mx-auto mt-4 max-w-md text-ivory/75">
+      Your wedding deserves more than photographs. It deserves a story that
+      lasts forever.
+    </p>
+    <a
+      href="/contact"
+      class="mt-8 inline-block rounded-full bg-marigold-light px-8 py-3 text-sm uppercase tracking-[0.14em] text-ink transition hover:bg-ivory"
+    >
+      Start the Conversation
+    </a>
+  </section>
+</Layout>

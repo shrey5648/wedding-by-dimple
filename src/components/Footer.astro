@@ -1,0 +1,52 @@
+---
+import Flourish from "./Flourish.astro";
+---
+
+<footer class="bg-ink px-6 pb-10 pt-16 text-ivory md:px-10">
+  <div class="mx-auto max-w-7xl">
+    <div class="grid gap-12 md:grid-cols-3">
+      <div>
+        <p class="font-display text-2xl">Wedding by Dimple</p>
+        <p class="mt-4 max-w-xs text-sm leading-relaxed text-ivory/70">
+          Candid, cinematic wedding photography and films — available across
+          India.
+        </p>
+      </div>
+
+      <div class="text-sm text-ivory/80">
+        <p class="mb-3 uppercase tracking-[0.14em] text-ivory/50">Menu</p>
+        <ul class="space-y-2">
+          <li><a href="/portfolio" class="hover:text-marigold-light">Portfolio</a></li>
+          <li><a href="/films" class="hover:text-marigold-light">Films</a></li>
+          <li><a href="/services" class="hover:text-marigold-light">Services</a></li>
+          <li><a href="/about" class="hover:text-marigold-light">About Us</a></li>
+        </ul>
+      </div>
+
+      <div class="text-sm text-ivory/80">
+        <p class="mb-3 uppercase tracking-[0.14em] text-ivory/50">Reach us</p>
+        <ul class="space-y-2">
+          <li>📍 Available Across India</li>
+          <li>
+            <a href="tel:+916353739229" class="hover:text-marigold-light">
+              📞 +91 63537 39229
+            </a>
+          </li>
+          <li>
+            <a href="mailto:dimplekacha2017@gmail.com" class="hover:text-marigold-light break-all">
+              📧 dimplekacha2017@gmail.com
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="my-10">
+      <Flourish color="var(--color-marigold-light)" />
+    </div>
+
+    <p class="text-center text-xs uppercase tracking-[0.14em] text-ivory/40">
+      &copy; {new Date().getFullYear()} Wedding by Dimple. All memories reserved.
+    </p>
+  </div>
+</footer>

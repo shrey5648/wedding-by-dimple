@@ -1,0 +1,68 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// Swap these seeds for real photo filenames once assets are supplied —
+// see README for how to move to optimized local images via astro:assets.
+const categories = ["All", "Weddings", "Pre-Wedding", "Engagement", "Portraits", "Haldi & Mehendi"];
+
+const gallery = Array.from({ length: 18 }).map((_, i) => ({
+  seed: `portfolio-${i + 1}`,
+  tall: i % 5 === 0,
+}));
+---
+
+<Layout
+  title="Portfolio"
+  description="A collection of weddings, engagements, and portraits captured by Wedding by Dimple."
+>
+  <section class="bg-ink px-6 pb-16 pt-40 text-center text-ivory md:px-10">
+    <p class="mb-3 text-xs uppercase tracking-[0.3em] text-marigold-light">Portfolio</p>
+    <h1 class="font-display text-4xl leading-tight sm:text-5xl">
+      Every frame, a moment lived
+    </h1>
+  </section>
+
+  <section class="px-6 py-6 md:px-10">
+    <div class="mx-auto flex max-w-6xl flex-wrap justify-center gap-3 py-8">
+      {
+        categories.map((c, i) => (
+          <button
+            class:list={[
+              "rounded-full border px-5 py-2 text-xs uppercase tracking-[0.14em] transition",
+              i === 0
+                ? "border-wine bg-wine text-ivory"
+                : "border-ink/20 text-ink/70 hover:border-wine hover:text-wine",
+            ]}
+          >
+            {c}
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="mx-auto max-w-6xl columns-2 gap-4 sm:columns-3 [&>*]:mb-4">
+      {
+        gallery.map((img) => (
+          <img
+            src={`https://picsum.photos/seed/${img.seed}/700/${img.tall ? 950 : 700}`}
+            alt="Wedding photography by Wedding by Dimple"
+            class="w-full rounded-sm object-cover"
+            loading="lazy"
+            width="700"
+            height={img.tall ? 950 : 700}
+          />
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="bg-blush px-6 py-20 text-center md:px-10">
+    <h2 class="font-display text-3xl">Want a gallery like this from your own day?</h2>
+    <a
+      href="/contact"
+      class="mt-6 inline-block rounded-full bg-wine px-8 py-3 text-sm uppercase tracking-[0.14em] text-ivory transition hover:bg-ink"
+    >
+      Check Availability
+    </a>
+  </section>
+</Layout>

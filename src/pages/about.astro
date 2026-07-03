@@ -1,0 +1,81 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Flourish from "../components/Flourish.astro";
+---
+
+<Layout
+  title="About Us"
+  description="Behind the lens at Wedding by Dimple — a team that becomes part of your family before the wedding day arrives."
+>
+  <section class="relative flex min-h-[60vh] items-end overflow-hidden bg-ink">
+    <img
+      src="https://picsum.photos/seed/about-hero/1800/1000"
+      alt="Wedding by Dimple team at work"
+      class="absolute inset-0 h-full w-full object-cover opacity-70"
+      width="1800"
+      height="1000"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-ink/10"></div>
+    <div class="relative z-10 px-6 pb-16 pt-40 md:px-10">
+      <p class="mb-3 text-xs uppercase tracking-[0.3em] text-marigold-light">About Us</p>
+      <h1 class="font-display text-4xl leading-tight text-ivory sm:text-5xl">
+        Preview behind the lens
+      </h1>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 md:px-10">
+    <div class="mx-auto max-w-3xl">
+      <p class="font-display text-2xl italic leading-snug text-wine">
+        At Wedding by Dimple, we arrive as your photographers, but we leave
+        as a part of your family.
+      </p>
+
+      <div class="mt-10 space-y-6 leading-relaxed text-ink/80">
+        <p>
+          We believe the most beautiful photographs are created when there's
+          trust, comfort, and a genuine connection. Before we become your
+          photographers, we become people you can laugh with, rely on, and
+          feel completely yourself around. We take the time to know you,
+          understand your story, and make every moment feel natural.
+        </p>
+        <p>
+          By the time your wedding day arrives, we're not strangers behind
+          cameras — we're a familiar presence celebrating alongside you and
+          your family. That comfort allows real smiles, real laughter, happy
+          tears, and heartfelt moments to unfold effortlessly.
+        </p>
+        <p>
+          For us, every wedding is personal. Every couple becomes part of our
+          journey, and every family leaves us with memories that go far
+          beyond photographs. Our team works with one purpose: to make you
+          feel relaxed, supported, and genuinely cared for from the very
+          first conversation to the final delivery of your memories.
+        </p>
+        <p>
+          Because when there's a real connection behind the camera, every
+          photograph tells an honest story. At Wedding by Dimple, we don't
+          just build beautiful albums — we build relationships that last long
+          after the wedding day is over.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="py-4"><Flourish /></div>
+
+  <section class="grid grid-cols-2 gap-4 px-6 pb-24 md:grid-cols-4 md:px-10">
+    {
+      ["about-1", "about-2", "about-3", "about-4"].map((seed) => (
+        <img
+          src={`https://picsum.photos/seed/${seed}/500/650`}
+          alt="Wedding by Dimple team moments"
+          class="aspect-[5/6] w-full rounded-sm object-cover"
+          loading="lazy"
+          width="500"
+          height="650"
+        />
+      ))
+    }
+  </section>
+</Layout>

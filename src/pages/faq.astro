@@ -1,0 +1,47 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const faqs = [
+  { q: "How early should we book?", a: "Ideally 3–6 months before your wedding." },
+  { q: "Do you travel?", a: "Yes. We happily travel across India for weddings and events." },
+  { q: "How many photos will we receive?", a: "Depending on the event, typically 500–1500 edited images." },
+  { q: "When will we receive our photos?", a: "Usually within 30–45 working days." },
+  { q: "Can we customize our package?", a: "Absolutely. Every wedding is unique, and we create packages based on your requirements." },
+];
+---
+
+<Layout
+  title="FAQ"
+  description="Answers to common questions about booking Wedding by Dimple for your wedding."
+>
+  <section class="bg-ink px-6 pb-16 pt-40 text-center text-ivory md:px-10">
+    <p class="mb-3 text-xs uppercase tracking-[0.3em] text-marigold-light">FAQ</p>
+    <h1 class="font-display text-4xl leading-tight sm:text-5xl">Questions, answered</h1>
+  </section>
+
+  <section class="px-6 py-20 md:px-10">
+    <div class="mx-auto max-w-3xl divide-y divide-ink/10">
+      {
+        faqs.map((item, i) => (
+          <details class="group py-6" open={i === 0}>
+            <summary class="flex cursor-pointer list-none items-center justify-between font-display text-xl">
+              {item.q}
+              <span class="ml-4 text-2xl text-marigold transition group-open:rotate-45">+</span>
+            </summary>
+            <p class="mt-4 max-w-2xl leading-relaxed text-ink/70">{item.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="bg-wine px-6 py-20 text-center text-ivory md:px-10">
+    <h2 class="font-display text-3xl">Still have a question?</h2>
+    <a
+      href="/contact"
+      class="mt-6 inline-block rounded-full bg-marigold-light px-8 py-3 text-sm uppercase tracking-[0.14em] text-ink transition hover:bg-ivory"
+    >
+      Get in Touch
+    </a>
+  </section>
+</Layout>
