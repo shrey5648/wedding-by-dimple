@@ -64,3 +64,213 @@ textarea:focus-visible {
   outline: 2px solid var(--color-marigold);
   outline-offset: 3px;
 }
+
+/* Premium Animations & Interactions */
+
+/* Ken Burns effect */
+@keyframes kenburns {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.08);
+  }
+}
+.animate-kenburns {
+  animation: kenburns 20s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite alternate;
+}
+
+/* Scroll reveal system */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(35px);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+.reveal-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered lists transitions */
+.reveal-delay-100 { transition-delay: 100ms; }
+.reveal-delay-200 { transition-delay: 200ms; }
+.reveal-delay-300 { transition-delay: 300ms; }
+.reveal-delay-400 { transition-delay: 400ms; }
+.reveal-delay-500 { transition-delay: 500ms; }
+.reveal-delay-600 { transition-delay: 600ms; }
+.reveal-delay-700 { transition-delay: 700ms; }
+.reveal-delay-800 { transition-delay: 800ms; }
+
+/* Fixed & Sticky Header transitions */
+.sticky-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  transition: padding 0.4s ease, background-color 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+.sticky-header.scrolled {
+  background-color: rgba(23, 19, 16, 0.85); /* var(--color-ink) with opacity */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(245, 239, 228, 0.08); /* var(--color-ivory) with opacity */
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+.sticky-header .header-inner {
+  transition: padding 0.4s ease;
+}
+.sticky-header.scrolled .header-inner {
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
+}
+
+/* Custom cursor styling (pointer-fine only) */
+@media (pointer: fine) {
+  .custom-cursor {
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-marigold-light);
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9999;
+    transition: width 0.2s, height 0.2s, background-color 0.2s, opacity 0.3s;
+    opacity: 0;
+  }
+  .custom-cursor-ring {
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(224, 169, 79, 0.5); /* marigold-light with opacity */
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9998;
+    transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s, opacity 0.3s;
+    opacity: 0;
+  }
+  /* Active custom cursor status */
+  .cursor-initialized .custom-cursor,
+  .cursor-initialized .custom-cursor-ring {
+    opacity: 1;
+  }
+  /* Hover effects */
+  body.cursor-hover .custom-cursor {
+    width: 4px;
+    height: 4px;
+    background-color: var(--color-wine-light);
+  }
+  body.cursor-hover .custom-cursor-ring {
+    width: 48px;
+    height: 48px;
+    border-color: var(--color-marigold);
+    background-color: rgba(198, 133, 43, 0.1);
+  }
+}
+
+/* Modals & Lightbox overlays */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(23, 19, 16, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-content {
+  transform: scale(0.95);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: 90%;
+  max-height: 85%;
+}
+.modal-overlay.active .modal-content {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Smooth active portfolio items */
+.portfolio-item {
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.portfolio-item.filtered-out {
+  opacity: 0.1;
+  transform: scale(0.92);
+  pointer-events: none;
+  filter: blur(2px);
+}
+
+/* Smooth Accordions */
+details.group summary::-webkit-details-marker {
+  display: none;
+}
+details.group summary {
+  outline: none;
+}
+details.group p {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out, opacity 0.4s ease-out;
+  opacity: 0;
+}
+details.group[open] p {
+  max-height: 200px;
+  opacity: 1;
+}
+
+/* Phase 2: High-End Interactive Animation Styles */
+
+/* 3D Card Hover Tilt */
+.tilt-card {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.tilt-card-inner {
+  transform-style: preserve-3d;
+  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.tilt-card:hover {
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4);
+}
+
+/* Magnetic Button utility */
+.magnetic-btn {
+  display: inline-block;
+  transition: transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform;
+}
+
+/* Split-word typography reveal */
+.word-mask {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  line-height: 1.2;
+}
+.word-item {
+  display: inline-block;
+  transform: translateY(110%);
+  opacity: 0;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+.reveal-on-scroll.revealed .word-item {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+

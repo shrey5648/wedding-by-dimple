@@ -7,20 +7,20 @@ import Layout from "../layouts/Layout.astro";
   description="Get in touch with Wedding by Dimple to check availability and discuss your wedding photography and film package."
 >
   <section class="bg-ink px-6 pb-16 pt-40 text-center text-ivory md:px-10">
-    <p class="mb-3 text-xs uppercase tracking-[0.3em] text-marigold-light">Contact</p>
-    <h1 class="mx-auto max-w-2xl font-display text-4xl leading-tight sm:text-5xl">
+    <p class="mb-3 text-xs uppercase tracking-[0.3em] text-marigold-light reveal-on-scroll">Contact</p>
+    <h1 class="mx-auto max-w-2xl font-display text-4xl leading-tight sm:text-5xl reveal-on-scroll reveal-delay-100">
       Let's create something beautiful together.
     </h1>
-    <p class="mx-auto mt-4 max-w-md text-ivory/75">
+    <p class="mx-auto mt-4 max-w-md text-ivory/75 reveal-on-scroll reveal-delay-200">
       Your wedding deserves more than photographs. It deserves a story that
       lasts forever.
     </p>
   </section>
 
-  <section class="px-6 py-20 md:px-10">
+  <section class="px-6 py-20 md:px-10 overflow-hidden">
     <div class="mx-auto grid max-w-5xl gap-16 md:grid-cols-[1fr_1.2fr]">
-      <div>
-        <p class="mb-6 font-display text-2xl">Reach us directly</p>
+      <div class="reveal-on-scroll">
+        <p class="mb-6 font-display text-2xl text-ink font-medium">Reach us directly</p>
         <ul class="space-y-5 text-ink/80">
           <li class="flex items-start gap-3">
             <span>📍</span>
@@ -28,18 +28,18 @@ import Layout from "../layouts/Layout.astro";
           </li>
           <li class="flex items-start gap-3">
             <span>📞</span>
-            <a href="tel:+916353739229" class="hover:text-wine">+91 63537 39229 (Call / WhatsApp)</a>
+            <a href="tel:+916353739229" class="hover:text-wine transition-colors">+91 63537 39229 (Call / WhatsApp)</a>
           </li>
           <li class="flex items-start gap-3">
             <span>📧</span>
-            <a href="mailto:dimplekacha2017@gmail.com" class="break-all hover:text-wine">
+            <a href="mailto:dimplekacha2017@gmail.com" class="break-all hover:text-wine transition-colors">
               dimplekacha2017@gmail.com
             </a>
           </li>
         </ul>
       </div>
 
-      <form id="contact-form" class="space-y-5">
+      <form id="contact-form" class="space-y-5 reveal-on-scroll reveal-delay-200">
         <!-- Get a free access key at https://web3forms.com and paste it
              below — this lets the form submit without any backend. -->
         <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
@@ -54,7 +54,7 @@ import Layout from "../layouts/Layout.astro";
             name="name"
             type="text"
             required
-            class="w-full border-0 border-b border-ink/20 bg-transparent py-2 focus:border-wine focus:outline-none"
+            class="w-full border-0 border-b border-ink/20 bg-transparent py-2 focus:border-wine focus:outline-none transition-colors"
           />
         </div>
 
@@ -68,7 +68,7 @@ import Layout from "../layouts/Layout.astro";
               name="email"
               type="email"
               required
-              class="w-full border-0 border-b border-ink/20 bg-transparent py-2 focus:border-wine focus:outline-none"
+              class="w-full border-0 border-b border-ink/20 bg-transparent py-2 focus:border-wine focus:outline-none transition-colors"
             />
           </div>
           <div>
@@ -79,7 +79,7 @@ import Layout from "../layouts/Layout.astro";
               id="phone"
               name="phone"
               type="tel"
-              class="w-full border-0 border-b border-ink/20 bg-transparent py-2 focus:border-wine focus:outline-none"
+              class="w-full border-0 border-b border-ink/20 bg-transparent py-2 focus:border-wine focus:outline-none transition-colors"
             />
           </div>
         </div>
@@ -93,7 +93,7 @@ import Layout from "../layouts/Layout.astro";
               id="event_date"
               name="event_date"
               type="date"
-              class="w-full border-0 border-b border-ink/20 bg-transparent py-2 focus:border-wine focus:outline-none"
+              class="w-full border-0 border-b border-ink/20 bg-transparent py-2 focus:border-wine focus:outline-none transition-colors"
             />
           </div>
           <div>
@@ -104,7 +104,7 @@ import Layout from "../layouts/Layout.astro";
               id="location"
               name="location"
               type="text"
-              class="w-full border-0 border-b border-ink/20 bg-transparent py-2 focus:border-wine focus:outline-none"
+              class="w-full border-0 border-b border-ink/20 bg-transparent py-2 focus:border-wine focus:outline-none transition-colors"
             />
           </div>
         </div>
@@ -117,13 +117,13 @@ import Layout from "../layouts/Layout.astro";
             id="message"
             name="message"
             rows="4"
-            class="w-full border-0 border-b border-ink/20 bg-transparent py-2 focus:border-wine focus:outline-none"
+            class="w-full border-0 border-b border-ink/20 bg-transparent py-2 focus:border-wine focus:outline-none transition-colors"
           ></textarea>
         </div>
 
         <button
           type="submit"
-          class="rounded-full bg-wine px-8 py-3 text-sm uppercase tracking-[0.14em] text-ivory transition hover:bg-ink"
+          class="rounded-full bg-wine px-8 py-3 text-sm uppercase tracking-[0.14em] text-ivory transition hover:bg-ink hover:scale-105 duration-300 cursor-pointer"
         >
           Send Enquiry
         </button>
@@ -135,29 +135,35 @@ import Layout from "../layouts/Layout.astro";
 </Layout>
 
 <script>
-  const form = document.getElementById("contact-form") as HTMLFormElement;
-  const status = document.getElementById("form-status");
+  const setupContactForm = () => {
+    const form = document.getElementById("contact-form") as HTMLFormElement;
+    const status = document.getElementById("form-status");
 
-  form?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    if (status) status.textContent = "Sending...";
+    form?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (status) status.textContent = "Sending...";
 
-    const formData = new FormData(form);
-    try {
-      const res = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body: formData,
-      });
-      const result = await res.json();
-      if (result.success) {
-        if (status) status.textContent = "Thank you — we'll be in touch soon.";
-        form.reset();
-      } else {
+      const formData = new FormData(form);
+      try {
+        const res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: formData,
+        });
+        const result = await res.json();
+        if (result.success) {
+          if (status) status.textContent = "Thank you — we'll be in touch soon.";
+          form.reset();
+        } else {
+          if (status) status.textContent = "Something went wrong. Please try again or call us directly.";
+        }
+      } catch {
         if (status) status.textContent = "Something went wrong. Please try again or call us directly.";
       }
-    } catch {
-      if (status) status.textContent = "Something went wrong. Please try again or call us directly.";
-    }
-  });
+    });
+  };
+
+  // Bind submit event
+  setupContactForm();
+  document.addEventListener("astro:after-swap", setupContactForm);
 </script>

@@ -16,32 +16,34 @@ const stories = [
   description="Real weddings, real emotions — stories from couples captured by Wedding by Dimple."
 >
   <section class="bg-ink px-6 pb-16 pt-40 text-center text-ivory md:px-10">
-    <p class="mb-3 text-xs uppercase tracking-[0.3em] text-marigold-light">Real Stories</p>
-    <h1 class="mx-auto max-w-2xl font-display text-4xl leading-tight sm:text-5xl">
+    <p class="mb-3 text-xs uppercase tracking-[0.3em] text-marigold-light reveal-on-scroll">Real Stories</p>
+    <h1 class="mx-auto max-w-2xl font-display text-4xl leading-tight sm:text-5xl reveal-on-scroll reveal-delay-100">
       Every smile, every tear, every ritual — remembered
     </h1>
   </section>
 
-  <section class="px-6 py-20 md:px-10">
-    <div class="mx-auto flex max-w-5xl flex-col gap-20">
+  <section class="px-6 py-20 md:px-10 overflow-hidden">
+    <div class="mx-auto max-w-5xl flex-col gap-20">
       {
         stories.map((story, i) => (
           <article
             class:list={[
-              "grid items-center gap-10 md:grid-cols-2",
+              "grid items-center gap-10 md:grid-cols-2 reveal-on-scroll mb-20 last:mb-0",
               i % 2 === 1 && "md:[&>*:first-child]:order-2",
             ]}
           >
-            <img
-              src={`https://picsum.photos/seed/${story.seed}/700/560`}
-              alt={`Wedding of ${story.names}`}
-              class="aspect-[5/4] w-full rounded-sm object-cover"
-              loading="lazy"
-              width="700"
-              height="560"
-            />
-            <div>
-              <p class="font-display text-2xl">{story.names}</p>
+            <div class="overflow-hidden rounded-sm">
+              <img
+                src={`https://picsum.photos/seed/${story.seed}/700/560`}
+                alt={`Wedding of ${story.names}`}
+                class="aspect-[5/4] w-full object-cover transition-transform duration-750 hover:scale-105"
+                loading="lazy"
+                width="700"
+                height="560"
+              />
+            </div>
+            <div class="reveal-on-scroll reveal-delay-200">
+              <p class="font-display text-2xl text-ink font-medium">{story.names}</p>
               <p class="mt-1 text-sm uppercase tracking-[0.14em] text-wine">{story.place}</p>
               <p class="mt-4 leading-relaxed text-ink/75">
                 A day of ritual, laughter, and quiet in-between moments —
@@ -50,7 +52,7 @@ const stories = [
               </p>
               <a
                 href="/contact"
-                class="mt-4 inline-block border-b border-wine text-sm uppercase tracking-[0.14em] text-wine"
+                class="mt-4 inline-block border-b border-wine text-sm uppercase tracking-[0.14em] text-wine hover:text-wine-light hover:border-wine-light transition-colors"
               >
                 Enquire About a Similar Story &rarr;
               </a>

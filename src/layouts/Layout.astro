@@ -23,8 +23,181 @@ const { title, description } = Astro.props;
     <meta property="og:type" content="website" />
   </head>
   <body>
+    <!-- Premium custom cursor elements -->
+    <div class="custom-cursor" id="cursor"></div>
+    <div class="custom-cursor-ring" id="cursor-ring"></div>
+
     <Header />
     <slot />
     <Footer />
+
+    <script>
+      const initScrollReveal = () => {
+        const observerOptions = {
+          root: null,
+          rootMargin: "0px 0px -8% 0px", // Trigger reveals slightly before element is fully in view
+          threshold: 0.05,
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("revealed");
+              observer.unobserve(entry.target);
+            }
+          });
+        }, observerOptions);
+
+        document.querySelectorAll(".reveal-on-scroll").forEach((el) => {
+          observer.observe(el);
+        });
+      };
+
+      const initCustomCursor = () => {
+        const cursor = document.getElementById("cursor");
+        const cursorRing = document.getElementById("cursor-ring");
+        if (!cursor || !cursorRing) return;
+
+        // Disable on touch devices
+        const isTouch = window.matchMedia("(pointer: coarse)").matches;
+        if (isTouch) {
+          cursor.style.display = "none";
+          cursorRing.style.display = "none";
+          return;
+        }
+
+        document.body.classList.add("cursor-initialized");
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let ringX = 0;
+        let ringY = 0;
+
+        window.addEventListener("mousemove", (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+          
+          cursor.style.left = `${mouseX}px`;
+          cursor.style.top = `${mouseY}px`;
+        });
+
+        // Smooth cursor trailing using linear interpolation (lerp)
+        const animateRing = () => {
+          const ease = 0.16; // Interpolation speed factor
+          ringX += (mouseX - ringX) * ease;
+          ringY += (mouseY - ringY) * ease;
+
+          cursorRing.style.left = `${ringX}px`;
+          cursorRing.style.top = `${ringY}px`;
+
+          requestAnimationFrame(animateRing);
+        };
+        
+        animateRing();
+
+        // Mouse hover interactions for cursor size expansion
+        const addHoverListeners = () => {
+          const hoverTargets = document.querySelectorAll(
+            "a, button, input, textarea, select, [role='button'], .group, details summary, .interactive-hover"
+          );
+          hoverTargets.forEach((target) => {
+            // Avoid duplicate listeners if script runs multiple times
+            target.removeEventListener("mouseenter", handleMouseEnter);
+            target.removeEventListener("mouseleave", handleMouseLeave);
+            
+            target.addEventListener("mouseenter", handleMouseEnter);
+            target.addEventListener("mouseleave", handleMouseLeave);
+          });
+        };
+
+        function handleMouseEnter() {
+          document.body.classList.add("cursor-hover");
+        }
+
+        function handleMouseLeave() {
+          document.body.classList.remove("cursor-hover");
+        }
+
+        addHoverListeners();
+
+        // Monitor elements added dynamically (like portfolio filter or loaded modals)
+        const observer = new MutationObserver(addHoverListeners);
+        observer.observe(document.body, { childList: true, subtree: true });
+      };
+
+      const initMagneticButtons = () => {
+        const isTouch = window.matchMedia("(pointer: coarse)").matches;
+        if (isTouch) return;
+
+        const mBtns = document.querySelectorAll(".magnetic-btn");
+        mBtns.forEach((btn) => {
+          btn.addEventListener("mousemove", (e) => {
+            const mouseEvent = e as MouseEvent;
+            const rect = btn.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+            const mouseX = mouseEvent.clientX;
+            const mouseY = mouseEvent.clientY;
+            
+            const deltaX = (mouseX - x) * 0.35;
+            const deltaY = (mouseY - y) * 0.35;
+            
+            (btn as HTMLElement).style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+          });
+          
+          btn.addEventListener("mouseleave", () => {
+            (btn as HTMLElement).style.transform = "translate(0px, 0px)";
+          });
+        });
+      };
+
+      const initTiltCards = () => {
+        const isTouch = window.matchMedia("(pointer: coarse)").matches;
+        if (isTouch) return;
+
+        const cards = document.querySelectorAll(".tilt-card");
+        cards.forEach((card) => {
+          const inner = card.querySelector(".tilt-card-inner") as HTMLElement || card as HTMLElement;
+          
+          card.addEventListener("mousemove", (e) => {
+            const mouseEvent = e as MouseEvent;
+            const rect = card.getBoundingClientRect();
+            const x = mouseEvent.clientX - rect.left;
+            const y = mouseEvent.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const tiltX = (y - centerY) / centerY;
+            const tiltY = (centerX - x) / centerX;
+            
+            const maxTilt = 8;
+            const rotX = (tiltX * maxTilt).toFixed(2);
+            const rotY = (tiltY * maxTilt).toFixed(2);
+            
+            inner.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02, 1.02, 1.02)`;
+          });
+          
+          card.addEventListener("mouseleave", () => {
+            inner.style.transform = "rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+          });
+        });
+      };
+
+      const setupAnimations = () => {
+        initScrollReveal();
+        initCustomCursor();
+        initMagneticButtons();
+        initTiltCards();
+      };
+
+      // Run on initial load and view transition page changes
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", setupAnimations);
+      } else {
+        setupAnimations();
+      }
+      
+      document.addEventListener("astro:after-swap", setupAnimations);
+    </script>
   </body>
 </html>

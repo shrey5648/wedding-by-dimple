@@ -11,21 +11,21 @@ import Flourish from "../components/Flourish.astro";
     <img
       src="https://picsum.photos/seed/about-hero/1800/1000"
       alt="Wedding by Dimple team at work"
-      class="absolute inset-0 h-full w-full object-cover opacity-70"
+      class="absolute inset-0 h-full w-full object-cover opacity-70 animate-kenburns"
       width="1800"
       height="1000"
     />
     <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-ink/10"></div>
     <div class="relative z-10 px-6 pb-16 pt-40 md:px-10">
-      <p class="mb-3 text-xs uppercase tracking-[0.3em] text-marigold-light">About Us</p>
-      <h1 class="font-display text-4xl leading-tight text-ivory sm:text-5xl">
+      <p class="mb-3 text-xs uppercase tracking-[0.3em] text-marigold-light reveal-on-scroll">About Us</p>
+      <h1 class="font-display text-4xl leading-tight text-ivory sm:text-5xl reveal-on-scroll reveal-delay-100">
         Preview behind the lens
       </h1>
     </div>
   </section>
 
-  <section class="px-6 py-20 md:px-10">
-    <div class="mx-auto max-w-3xl">
+  <section class="px-6 py-20 md:px-10 overflow-hidden">
+    <div class="mx-auto max-w-3xl reveal-on-scroll">
       <p class="font-display text-2xl italic leading-snug text-wine">
         At Wedding by Dimple, we arrive as your photographers, but we leave
         as a part of your family.
@@ -64,13 +64,13 @@ import Flourish from "../components/Flourish.astro";
 
   <div class="py-4"><Flourish /></div>
 
-  <section class="grid grid-cols-2 gap-4 px-6 pb-24 md:grid-cols-4 md:px-10">
+  <section class="grid grid-cols-2 gap-4 px-6 pb-24 md:grid-cols-4 md:px-10 overflow-hidden">
     {
-      ["about-1", "about-2", "about-3", "about-4"].map((seed) => (
+      ["about-1", "about-2", "about-3", "about-4"].map((seed, index) => (
         <img
           src={`https://picsum.photos/seed/${seed}/500/650`}
           alt="Wedding by Dimple team moments"
-          class="aspect-[5/6] w-full rounded-sm object-cover"
+          class={`aspect-[5/6] w-full rounded-sm object-cover reveal-on-scroll reveal-delay-${(index % 4) * 150 + 100}`}
           loading="lazy"
           width="500"
           height="650"

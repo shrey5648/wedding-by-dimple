@@ -1,14 +1,17 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-// Swap these seeds for real photo filenames once assets are supplied —
-// see README for how to move to optimized local images via astro:assets.
 const categories = ["All", "Weddings", "Pre-Wedding", "Engagement", "Portraits", "Haldi & Mehendi"];
 
-const gallery = Array.from({ length: 18 }).map((_, i) => ({
-  seed: `portfolio-${i + 1}`,
-  tall: i % 5 === 0,
-}));
+const gallery = Array.from({ length: 18 }).map((_, i) => {
+  // Deterministically assign a category to each demo image
+  const catIndex = (i % (categories.length - 1)) + 1;
+  return {
+    seed: `portfolio-${i + 1}`,
+    tall: i % 5 === 0,
+    category: categories[catIndex],
+  };
+});
 ---
 
 <Layout
@@ -16,23 +19,25 @@ const gallery = Array.from({ length: 18 }).map((_, i) => ({
   description="A collection of weddings, engagements, and portraits captured by Wedding by Dimple."
 >
   <section class="bg-ink px-6 pb-16 pt-40 text-center text-ivory md:px-10">
-    <p class="mb-3 text-xs uppercase tracking-[0.3em] text-marigold-light">Portfolio</p>
-    <h1 class="font-display text-4xl leading-tight sm:text-5xl">
+    <p class="mb-3 text-xs uppercase tracking-[0.3em] text-marigold-light reveal-on-scroll">Portfolio</p>
+    <h1 class="font-display text-4xl leading-tight sm:text-5xl reveal-on-scroll reveal-delay-100">
       Every frame, a moment lived
     </h1>
   </section>
 
   <section class="px-6 py-6 md:px-10">
-    <div class="mx-auto flex max-w-6xl flex-wrap justify-center gap-3 py-8">
+    <!-- Category filter buttons -->
+    <div class="mx-auto flex max-w-6xl flex-wrap justify-center gap-3 py-8 reveal-on-scroll">
       {
         categories.map((c, i) => (
           <button
             class:list={[
-              "rounded-full border px-5 py-2 text-xs uppercase tracking-[0.14em] transition",
+              "filter-btn magnetic-btn rounded-full border px-5 py-2 text-xs uppercase tracking-[0.14em] transition cursor-pointer select-none",
               i === 0
-                ? "border-wine bg-wine text-ivory"
+                ? "border-wine bg-wine text-ivory active-filter"
                 : "border-ink/20 text-ink/70 hover:border-wine hover:text-wine",
             ]}
+            data-category={c}
           >
             {c}
           </button>
@@ -40,29 +45,176 @@ const gallery = Array.from({ length: 18 }).map((_, i) => ({
       }
     </div>
 
-    <div class="mx-auto max-w-6xl columns-2 gap-4 sm:columns-3 [&>*]:mb-4">
+    <!-- Gallery columns -->
+    <div id="portfolio-gallery" class="mx-auto max-w-6xl columns-2 gap-4 sm:columns-3 [&>*]:mb-4 reveal-on-scroll reveal-delay-200">
       {
-        gallery.map((img) => (
-          <img
-            src={`https://picsum.photos/seed/${img.seed}/700/${img.tall ? 950 : 700}`}
-            alt="Wedding photography by Wedding by Dimple"
-            class="w-full rounded-sm object-cover"
-            loading="lazy"
-            width="700"
-            height={img.tall ? 950 : 700}
-          />
+        gallery.map((img, i) => (
+          <div
+            class="portfolio-item tilt-card break-inside-avoid overflow-hidden rounded-sm cursor-pointer group relative shadow-sm"
+            data-category={img.category}
+            data-index={i}
+          >
+            <img
+              src={`https://picsum.photos/seed/${img.seed}/700/${img.tall ? 950 : 700}`}
+              alt={`Wedding photography by Wedding by Dimple - ${img.category}`}
+              class="w-full rounded-sm object-cover transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+              width="700"
+              height={img.tall ? 950 : 700}
+            />
+            <div class="absolute inset-0 bg-ink/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+              <span class="text-ivory text-xs uppercase tracking-[0.15em] border-b border-ivory/40 pb-0.5">{img.category}</span>
+            </div>
+          </div>
         ))
       }
     </div>
   </section>
 
-  <section class="bg-blush px-6 py-20 text-center md:px-10">
+  <!-- Photo Lightbox Modal -->
+  <div id="lightbox" class="modal-overlay" role="dialog" aria-modal="true">
+    <button id="lightbox-close" class="absolute top-6 right-6 text-ivory hover:text-marigold-light text-4xl cursor-pointer focus:outline-none z-[110]" aria-label="Close lightbox">&times;</button>
+    <button id="lightbox-prev" class="absolute left-6 text-ivory hover:text-marigold-light text-5xl cursor-pointer select-none focus:outline-none z-[110]" aria-label="Previous image">&#10094;</button>
+    <button id="lightbox-next" class="absolute right-6 text-ivory hover:text-marigold-light text-5xl cursor-pointer select-none focus:outline-none z-[110]" aria-label="Next image">&#10095;</button>
+    
+    <div class="modal-content flex flex-col items-center max-w-[90%] max-h-[85vh]">
+      <img id="lightbox-img" src="" alt="Enlarged gallery view" class="max-w-full max-h-[75vh] object-contain rounded-sm shadow-2xl" />
+      <p id="lightbox-caption" class="text-ivory/80 mt-4 text-sm uppercase tracking-[0.15em] font-display text-center"></p>
+    </div>
+  </div>
+
+  <section class="bg-blush px-6 py-20 text-center md:px-10 reveal-on-scroll">
     <h2 class="font-display text-3xl">Want a gallery like this from your own day?</h2>
     <a
       href="/contact"
-      class="mt-6 inline-block rounded-full bg-wine px-8 py-3 text-sm uppercase tracking-[0.14em] text-ivory transition hover:bg-ink"
+      class="mt-6 inline-block rounded-full bg-wine px-8 py-3 text-sm uppercase tracking-[0.14em] text-ivory transition hover:bg-ink hover:scale-105 duration-300"
     >
       Check Availability
     </a>
   </section>
 </Layout>
+
+<script>
+  const setupPortfolio = () => {
+    const filterBtns = document.querySelectorAll(".filter-btn");
+    const galleryItems = document.querySelectorAll(".portfolio-item") as NodeListOf<HTMLElement>;
+    
+    // 1. Client-Side Category Filtering
+    filterBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        // Toggle Active styles on buttons
+        filterBtns.forEach((b) => {
+          b.classList.remove("border-wine", "bg-wine", "text-ivory", "active-filter");
+          b.classList.add("border-ink/20", "text-ink/70", "hover:border-wine", "hover:text-wine");
+        });
+        btn.classList.add("border-wine", "bg-wine", "text-ivory", "active-filter");
+        btn.classList.remove("border-ink/20", "text-ink/70", "hover:border-wine", "hover:text-wine");
+
+        const targetCat = btn.getAttribute("data-category");
+
+        galleryItems.forEach((item) => {
+          const itemCat = item.getAttribute("data-category");
+          
+          if (targetCat === "All" || itemCat === targetCat) {
+            item.style.display = "block";
+            // Trigger reflow to run CSS animation
+            void item.offsetWidth;
+            item.classList.remove("filtered-out");
+          } else {
+            item.classList.add("filtered-out");
+            const onFadeEnd = (e: TransitionEvent) => {
+              if (item.classList.contains("filtered-out") && e.propertyName === "opacity") {
+                item.style.display = "none";
+              }
+              item.removeEventListener("transitionend", onFadeEnd);
+            };
+            item.addEventListener("transitionend", onFadeEnd);
+          }
+        });
+      });
+    });
+
+    // 2. Lightbox Modal logic
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img") as HTMLImageElement;
+    const lightboxCaption = document.getElementById("lightbox-caption");
+    const closeBtn = document.getElementById("lightbox-close");
+    const prevBtn = document.getElementById("lightbox-prev");
+    const nextBtn = document.getElementById("lightbox-next");
+    
+    let activeImages: { src: string; category: string }[] = [];
+    let currentIndex = 0;
+
+    const updateActiveImagesList = () => {
+      activeImages = [];
+      galleryItems.forEach((item) => {
+        // Only include currently visible (non-filtered) images in lightbox carousel
+        if (item.style.display !== "none") {
+          const img = item.querySelector("img");
+          const category = item.getAttribute("data-category") || "";
+          if (img) {
+            activeImages.push({
+              src: img.src,
+              category: category,
+            });
+            // Assign index mapping in active list
+            item.setAttribute("data-active-idx", String(activeImages.length - 1));
+          }
+        }
+      });
+    };
+
+    const showImage = (index: number) => {
+      if (index < 0) index = activeImages.length - 1;
+      if (index >= activeImages.length) index = 0;
+      currentIndex = index;
+      
+      const imgData = activeImages[currentIndex];
+      if (imgData && lightboxImg && lightboxCaption) {
+        lightboxImg.src = imgData.src;
+        lightboxCaption.textContent = imgData.category;
+      }
+    };
+
+    galleryItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        updateActiveImagesList();
+        const activeIdxStr = item.getAttribute("data-active-idx");
+        if (activeIdxStr !== null) {
+          const index = parseInt(activeIdxStr, 10);
+          showImage(index);
+          lightbox?.classList.add("active");
+          document.body.style.overflow = "hidden"; // Disable scroll when modal open
+        }
+      });
+    });
+
+    const closeLightbox = () => {
+      lightbox?.classList.remove("active");
+      document.body.style.overflow = ""; // Re-enable scroll
+    };
+
+    closeBtn?.addEventListener("click", closeLightbox);
+    prevBtn?.addEventListener("click", () => showImage(currentIndex - 1));
+    nextBtn?.addEventListener("click", () => showImage(currentIndex + 1));
+    
+    // Close on overlay backdrop click
+    lightbox?.addEventListener("click", (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    // Keyboard support
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!lightbox?.classList.contains("active")) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") showImage(currentIndex - 1);
+      if (e.key === "ArrowRight") showImage(currentIndex + 1);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+  };
+
+  // Bind portfolio behaviors
+  setupPortfolio();
+  document.addEventListener("astro:after-swap", setupPortfolio);
+</script>

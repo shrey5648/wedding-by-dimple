@@ -15,18 +15,18 @@ const faqs = [
   description="Answers to common questions about booking Wedding by Dimple for your wedding."
 >
   <section class="bg-ink px-6 pb-16 pt-40 text-center text-ivory md:px-10">
-    <p class="mb-3 text-xs uppercase tracking-[0.3em] text-marigold-light">FAQ</p>
-    <h1 class="font-display text-4xl leading-tight sm:text-5xl">Questions, answered</h1>
+    <p class="mb-3 text-xs uppercase tracking-[0.3em] text-marigold-light reveal-on-scroll">FAQ</p>
+    <h1 class="font-display text-4xl leading-tight sm:text-5xl reveal-on-scroll reveal-delay-100">Questions, answered</h1>
   </section>
 
-  <section class="px-6 py-20 md:px-10">
+  <section class="px-6 py-20 md:px-10 overflow-hidden">
     <div class="mx-auto max-w-3xl divide-y divide-ink/10">
       {
         faqs.map((item, i) => (
-          <details class="group py-6" open={i === 0}>
+          <details class={`group py-6 reveal-on-scroll reveal-delay-${(i % 5) * 100 + 100}`} open={i === 0}>
             <summary class="flex cursor-pointer list-none items-center justify-between font-display text-xl">
               {item.q}
-              <span class="ml-4 text-2xl text-marigold transition group-open:rotate-45">+</span>
+              <span class="ml-4 text-2xl text-marigold transition duration-300 group-open:rotate-45 select-none">+</span>
             </summary>
             <p class="mt-4 max-w-2xl leading-relaxed text-ink/70">{item.a}</p>
           </details>
@@ -35,13 +35,75 @@ const faqs = [
     </div>
   </section>
 
-  <section class="bg-wine px-6 py-20 text-center text-ivory md:px-10">
+  <section class="bg-wine px-6 py-20 text-center text-ivory md:px-10 reveal-on-scroll">
     <h2 class="font-display text-3xl">Still have a question?</h2>
     <a
       href="/contact"
-      class="mt-6 inline-block rounded-full bg-marigold-light px-8 py-3 text-sm uppercase tracking-[0.14em] text-ink transition hover:bg-ivory"
+      class="mt-6 inline-block rounded-full bg-marigold-light px-8 py-3 text-sm uppercase tracking-[0.14em] text-ink transition hover:bg-ivory hover:scale-105 duration-300"
     >
       Get in Touch
     </a>
   </section>
 </Layout>
+
+<script>
+  const setupAccordionAnimation = () => {
+    document.querySelectorAll("details.group").forEach((details) => {
+      const summary = details.querySelector("summary");
+      const content = details.querySelector("p");
+      if (!summary || !content) return;
+
+      summary.addEventListener("click", (e) => {
+        e.preventDefault();
+        
+        const isClosed = !details.hasAttribute("open");
+        
+        if (isClosed) {
+          // Open phase
+          details.setAttribute("open", "");
+          content.style.maxHeight = "0px";
+          content.style.opacity = "0";
+          
+          // Trigger reflow
+          void content.offsetHeight;
+          
+          content.style.maxHeight = `${content.scrollHeight}px`;
+          content.style.opacity = "1";
+          
+          const onOpenEnd = (event: TransitionEvent) => {
+            if (event.propertyName === "max-height") {
+              content.style.maxHeight = "";
+              content.style.opacity = "";
+              content.removeEventListener("transitionend", onOpenEnd);
+            }
+          };
+          content.addEventListener("transitionend", onOpenEnd);
+        } else {
+          // Close phase
+          content.style.maxHeight = `${content.scrollHeight}px`;
+          content.style.opacity = "1";
+          
+          // Trigger reflow
+          void content.offsetHeight;
+          
+          content.style.maxHeight = "0px";
+          content.style.opacity = "0";
+          
+          const onCloseEnd = (event: TransitionEvent) => {
+            if (event.propertyName === "max-height") {
+              details.removeAttribute("open");
+              content.style.maxHeight = "";
+              content.style.opacity = "";
+              content.removeEventListener("transitionend", onCloseEnd);
+            }
+          };
+          content.addEventListener("transitionend", onCloseEnd);
+        }
+      });
+    });
+  };
+
+  // Bind accordions
+  setupAccordionAnimation();
+  document.addEventListener("astro:after-swap", setupAccordionAnimation);
+</script>

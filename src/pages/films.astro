@@ -2,10 +2,30 @@
 import Layout from "../layouts/Layout.astro";
 
 const films = [
-  { title: "Riya & Kunal", place: "Udaipur", seed: "film-1" },
-  { title: "Sneha & Aarav", place: "Ahmedabad", seed: "film-2" },
-  { title: "Priya & Dev", place: "Goa", seed: "film-3" },
-  { title: "Meera & Rohan", place: "Jaipur", seed: "film-4" },
+  { 
+    title: "Riya & Kunal", 
+    place: "Udaipur", 
+    seed: "film-1", 
+    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-bride-and-groom-holding-hands-40502-large.mp4" 
+  },
+  { 
+    title: "Sneha & Aarav", 
+    place: "Ahmedabad", 
+    seed: "film-2", 
+    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-groom-putting-ring-on-brides-finger-40503-large.mp4" 
+  },
+  { 
+    title: "Priya & Dev", 
+    place: "Goa", 
+    seed: "film-3", 
+    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-bride-walking-down-the-path-in-a-forest-40501-large.mp4" 
+  },
+  { 
+    title: "Meera & Rohan", 
+    place: "Jaipur", 
+    seed: "film-4", 
+    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-newlyweds-slow-dancing-at-their-wedding-party-34351-large.mp4" 
+  },
 ];
 ---
 
@@ -14,11 +34,11 @@ const films = [
   description="Cinematic wedding films by Wedding by Dimple — storytelling, music, and artistic visuals."
 >
   <section class="bg-ink px-6 pb-16 pt-40 text-center text-ivory md:px-10">
-    <p class="mb-3 text-xs uppercase tracking-[0.3em] text-marigold-light">Films</p>
-    <h1 class="mx-auto max-w-2xl font-display text-4xl leading-tight sm:text-5xl">
+    <p class="mb-3 text-xs uppercase tracking-[0.3em] text-marigold-light reveal-on-scroll">Films</p>
+    <h1 class="mx-auto max-w-2xl font-display text-4xl leading-tight sm:text-5xl reveal-on-scroll reveal-delay-100">
       Relive Your Wedding Through Cinema
     </h1>
-    <p class="mx-auto mt-5 max-w-xl text-ivory/75">
+    <p class="mx-auto mt-5 max-w-xl text-ivory/75 reveal-on-scroll reveal-delay-200">
       We believe that every wedding is unique. Our cinematic wedding films
       combine storytelling, music, and artistic visuals to create memories
       you'll treasure forever.
@@ -28,41 +48,128 @@ const films = [
   <section class="px-6 py-20 md:px-10">
     <div class="mx-auto grid max-w-6xl gap-10 sm:grid-cols-2">
       {
-        films.map((film) => (
-          <a href="#" class="group block">
-            <div class="relative aspect-video overflow-hidden rounded-sm bg-ink">
+        films.map((film, index) => (
+          <button 
+            class="film-card group text-left block w-full focus:outline-none cursor-pointer"
+            data-video-src={film.videoUrl}
+            data-video-title={film.title}
+          >
+            <div class="tilt-card relative aspect-video overflow-hidden rounded-sm bg-ink reveal-on-scroll" style={`transition-delay: ${index * 150}ms`}>
               <img
                 src={`https://picsum.photos/seed/${film.seed}/800/450`}
                 alt={`Wedding film still — ${film.title}`}
-                class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                 loading="lazy"
                 width="800"
                 height="450"
               />
               <div class="absolute inset-0 flex items-center justify-center bg-ink/30 transition group-hover:bg-ink/40">
-                <span class="flex h-14 w-14 items-center justify-center rounded-full bg-ivory/90 text-ink">
+                <span class="flex h-14 w-14 items-center justify-center rounded-full bg-ivory/95 text-ink transition-transform duration-300 group-hover:scale-110 group-hover:bg-marigold-light group-hover:text-ink shadow-md">
                   ▶
                 </span>
               </div>
             </div>
-            <p class="mt-3 font-display text-lg">{film.title}</p>
-            <p class="text-sm text-ink/60">{film.place}</p>
-          </a>
+            <div class="reveal-on-scroll mt-3" style={`transition-delay: ${index * 150 + 100}ms`}>
+              <p class="font-display text-lg text-ink font-medium">{film.title}</p>
+              <p class="text-sm text-ink/60">{film.place}</p>
+            </div>
+          </button>
         ))
       }
     </div>
   </section>
 
-  <section class="bg-wine px-6 py-24 text-center text-ivory md:px-10">
+  <!-- Cinematic Video Modal -->
+  <div id="video-modal" class="modal-overlay" role="dialog" aria-modal="true">
+    <button id="video-modal-close" class="absolute top-6 right-6 text-ivory hover:text-marigold-light text-4xl cursor-pointer focus:outline-none z-[110]" aria-label="Close video player">&times;</button>
+    
+    <div class="modal-content w-[90%] md:w-[75%] max-w-5xl aspect-video bg-black rounded-sm overflow-hidden shadow-2xl relative">
+      <video id="modal-video-player" class="w-full h-full object-cover" controls preload="metadata" playsinline>
+        <source src="" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+
+  <section class="bg-wine px-6 py-24 text-center text-ivory md:px-10 reveal-on-scroll">
     <p class="mx-auto max-w-xl font-display text-2xl italic leading-snug">
       "At Wedding by Dimple, every frame is captured with heart, passion, and
       purpose. Because your memories deserve to last forever."
     </p>
     <a
       href="/contact"
-      class="mt-8 inline-block rounded-full bg-marigold-light px-8 py-3 text-sm uppercase tracking-[0.14em] text-ink transition hover:bg-ivory"
+      class="mt-8 inline-block rounded-full bg-marigold-light px-8 py-3 text-sm uppercase tracking-[0.14em] text-ink transition hover:bg-ivory hover:scale-105 duration-300"
     >
       Book Your Film
     </a>
   </section>
 </Layout>
+
+<script>
+  const setupFilmsPage = () => {
+    const filmCards = document.querySelectorAll(".film-card");
+    const videoModal = document.getElementById("video-modal");
+    const videoPlayer = document.getElementById("modal-video-player") as HTMLVideoElement;
+    const closeBtn = document.getElementById("video-modal-close");
+
+    const openVideo = (videoUrl: string) => {
+      if (!videoPlayer || !videoModal) return;
+
+      const videoSource = videoPlayer.querySelector("source");
+      if (videoSource) {
+        videoSource.src = videoUrl;
+        videoPlayer.load();
+        
+        // Wait for load, then play
+        videoPlayer.play().catch((err) => {
+          console.log("Auto-play blocked or failed: ", err);
+        });
+
+        videoModal.classList.add("active");
+        document.body.style.overflow = "hidden"; // Prevent scrolling behind modal
+      }
+    };
+
+    const closeVideo = () => {
+      if (!videoPlayer || !videoModal) return;
+
+      videoPlayer.pause();
+      const videoSource = videoPlayer.querySelector("source");
+      if (videoSource) {
+        videoSource.src = ""; // Clear source to stop buffer network activity
+      }
+      videoModal.classList.remove("active");
+      document.body.style.overflow = ""; // Restore scrolling
+    };
+
+    filmCards.forEach((card) => {
+      card.addEventListener("click", () => {
+        const videoUrl = card.getAttribute("data-video-src");
+        if (videoUrl) {
+          openVideo(videoUrl);
+        }
+      });
+    });
+
+    closeBtn?.addEventListener("click", closeVideo);
+
+    // Close on backdrop overlay click
+    videoModal?.addEventListener("click", (e) => {
+      if (e.target === videoModal) {
+        closeVideo();
+      }
+    });
+
+    // Escape key support
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && videoModal?.classList.contains("active")) {
+        closeVideo();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+  };
+
+  // Bind events
+  setupFilmsPage();
+  document.addEventListener("astro:after-swap", setupFilmsPage);
+</script>

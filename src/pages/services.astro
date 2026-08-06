@@ -22,26 +22,28 @@ const services = [
   description="Wedding photography, cinematic films, pre-wedding shoots, and more — services offered by Wedding by Dimple."
 >
   <section class="bg-ink px-6 pb-16 pt-40 text-center text-ivory md:px-10">
-    <p class="mb-3 text-xs uppercase tracking-[0.3em] text-marigold-light">Our Services</p>
-    <h1 class="mx-auto max-w-2xl font-display text-4xl leading-tight sm:text-5xl">
+    <p class="mb-3 text-xs uppercase tracking-[0.3em] text-marigold-light reveal-on-scroll">Our Services</p>
+    <h1 class="mx-auto max-w-2xl font-display text-4xl leading-tight sm:text-5xl reveal-on-scroll reveal-delay-100">
       Coverage for every moment of your celebration
     </h1>
   </section>
 
-  <section class="px-6 py-20 md:px-10">
+  <section class="px-6 py-20 md:px-10 overflow-hidden">
     <div class="mx-auto grid max-w-6xl gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
       {
-        services.map((s) => (
-          <div>
-            <img
-              src={`https://picsum.photos/seed/${s.seed}/600/440`}
-              alt={s.title}
-              class="aspect-[4/3] w-full rounded-sm object-cover"
-              loading="lazy"
-              width="600"
-              height="440"
-            />
-            <p class="mt-4 font-display text-xl">{s.title}</p>
+        services.map((s, index) => (
+          <div class={`reveal-on-scroll reveal-delay-${(index % 3) * 150 + 100} group`}>
+            <div class="overflow-hidden rounded-sm">
+              <img
+                src={`https://picsum.photos/seed/${s.seed}/600/440`}
+                alt={s.title}
+                class="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+                width="600"
+                height="440"
+              />
+            </div>
+            <p class="mt-4 font-display text-xl text-ink font-medium">{s.title}</p>
             <p class="mt-2 text-sm leading-relaxed text-ink/70">{s.copy}</p>
           </div>
         ))
@@ -49,14 +51,14 @@ const services = [
     </div>
   </section>
 
-  <section class="bg-blush px-6 py-20 text-center md:px-10">
+  <section class="bg-blush px-6 py-20 text-center md:px-10 reveal-on-scroll">
     <h2 class="font-display text-3xl">Not sure which package fits your day?</h2>
     <p class="mx-auto mt-3 max-w-md text-ink/70">
       Every wedding is unique — we build packages around your requirements.
     </p>
     <a
       href="/contact"
-      class="mt-6 inline-block rounded-full bg-wine px-8 py-3 text-sm uppercase tracking-[0.14em] text-ivory transition hover:bg-ink"
+      class="mt-6 inline-block rounded-full bg-wine px-8 py-3 text-sm uppercase tracking-[0.14em] text-ivory transition hover:bg-ink hover:scale-105 duration-300"
     >
       Talk to Us
     </a>

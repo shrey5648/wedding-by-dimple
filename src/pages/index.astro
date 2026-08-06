@@ -26,10 +26,10 @@ const process = [
 ];
 
 const numbers = [
-  { value: "500+", label: "Weddings Captured" },
-  { value: "1000+", label: "Happy Families" },
-  { value: "8+", label: "Years Experience" },
-  { value: "Pan India", label: "Available Across India" },
+  { value: "500+", label: "Weddings Captured", target: 500, suffix: "+" },
+  { value: "1000+", label: "Happy Families", target: 1000, suffix: "+" },
+  { value: "8+", label: "Years Experience", target: 8, suffix: "+" },
+  { value: "Pan India", label: "Available Across India", target: null, suffix: "" },
 ];
 
 const testimonials = [
@@ -51,35 +51,39 @@ const testimonials = [
     <img
       src="https://picsum.photos/seed/wedding-hero/1800/1200"
       alt="Bride and groom candid moment"
-      class="absolute inset-0 h-full w-full object-cover opacity-80"
+      class="absolute inset-0 h-full w-full object-cover opacity-80 animate-kenburns"
       width="1800"
       height="1200"
     />
     <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-ink/10"></div>
 
     <div class="relative z-10 mx-auto max-w-4xl px-6 pb-20 pt-40 text-center md:px-10">
-      <p class="mb-5 text-xs uppercase tracking-[0.3em] text-marigold-light">
+      <p class="mb-5 text-xs uppercase tracking-[0.3em] text-marigold-light reveal-on-scroll">
         Wedding Photography &amp; Films · India
       </p>
-      <h1 class="font-display text-4xl leading-[1.1] text-ivory sm:text-5xl md:text-6xl">
-        Capturing Love.<br /> Preserving Forever.
+      <h1 class="font-display text-4xl leading-[1.1] text-ivory sm:text-5xl md:text-6xl reveal-on-scroll reveal-delay-100">
+        <span class="word-mask"><span class="word-item">Capturing</span></span>
+        <span class="word-mask"><span class="word-item text-marigold-light">Love.</span></span>
+        <br />
+        <span class="word-mask"><span class="word-item">Preserving</span></span>
+        <span class="word-mask"><span class="word-item text-marigold-light">Forever.</span></span>
       </h1>
-      <p class="mx-auto mt-6 max-w-xl text-balance text-ivory/80">
+      <p class="mx-auto mt-6 max-w-xl text-balance text-ivory/80 reveal-on-scroll reveal-delay-200">
         We don't just capture weddings. We preserve emotions forever.
       </p>
-      <p class="mx-auto mt-3 max-w-md font-display text-lg italic text-ivory/60">
+      <p class="mx-auto mt-3 max-w-md font-display text-lg italic text-ivory/60 reveal-on-scroll reveal-delay-300">
         "We arrive as your photographers, but we leave as a part of your family."
       </p>
-      <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-4 reveal-on-scroll reveal-delay-400">
         <a
           href="/portfolio"
-          class="rounded-full bg-marigold-light px-7 py-3 text-sm uppercase tracking-[0.14em] text-ink transition hover:bg-ivory"
+          class="magnetic-btn rounded-full bg-marigold-light px-7 py-3 text-sm uppercase tracking-[0.14em] text-ink transition hover:bg-ivory hover:scale-105 duration-300"
         >
           View Portfolio
         </a>
         <a
           href="/contact"
-          class="rounded-full border border-ivory/40 px-7 py-3 text-sm uppercase tracking-[0.14em] text-ivory transition hover:border-ivory"
+          class="magnetic-btn rounded-full border border-ivory/40 px-7 py-3 text-sm uppercase tracking-[0.14em] text-ivory transition hover:border-ivory hover:scale-105 duration-300"
         >
           Enquire Now
         </a>
@@ -88,10 +92,10 @@ const testimonials = [
   </section>
 
   <!-- Real Stories teaser -->
-  <section class="px-6 py-24 md:px-10">
+  <section class="px-6 py-24 md:px-10 overflow-hidden">
     <div class="mx-auto max-w-6xl">
       <div class="grid items-center gap-12 md:grid-cols-2">
-        <div>
+        <div class="reveal-on-scroll">
           <p class="mb-3 text-xs uppercase tracking-[0.3em] text-wine">Real Stories</p>
           <h2 class="font-display text-3xl leading-tight sm:text-4xl">
             Every smile, every tear, every ritual — remembered.
@@ -102,7 +106,7 @@ const testimonials = [
           </p>
           <a
             href="/real-stories"
-            class="mt-6 inline-block border-b border-wine text-sm uppercase tracking-[0.14em] text-wine"
+            class="mt-6 inline-block border-b border-wine text-sm uppercase tracking-[0.14em] text-wine hover:text-wine-light hover:border-wine-light transition-colors"
           >
             Read Real Stories &rarr;
           </a>
@@ -111,7 +115,7 @@ const testimonials = [
           <img
             src="https://picsum.photos/seed/story-1/500/650"
             alt="Wedding ritual candid moment"
-            class="h-full w-full rounded-sm object-cover"
+            class="h-full w-full rounded-sm object-cover reveal-on-scroll"
             loading="lazy"
             width="500"
             height="650"
@@ -119,7 +123,7 @@ const testimonials = [
           <img
             src="https://picsum.photos/seed/story-2/500/400"
             alt="Couple laughing candidly"
-            class="mt-8 h-full w-full rounded-sm object-cover"
+            class="mt-8 h-full w-full rounded-sm object-cover reveal-on-scroll reveal-delay-200"
             loading="lazy"
             width="500"
             height="400"
@@ -132,17 +136,17 @@ const testimonials = [
   <div class="py-4"><Flourish /></div>
 
   <!-- Films -->
-  <section class="bg-ink px-6 py-24 text-ivory md:px-10">
+  <section class="bg-ink px-6 py-24 text-ivory md:px-10 overflow-hidden">
     <div class="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-2">
       <img
         src="https://picsum.photos/seed/films-still/800/560"
         alt="Still frame from a cinematic wedding film"
-        class="aspect-video w-full rounded-sm object-cover"
+        class="aspect-video w-full rounded-sm object-cover reveal-on-scroll"
         loading="lazy"
         width="800"
         height="560"
       />
-      <div>
+      <div class="reveal-on-scroll reveal-delay-200">
         <p class="mb-3 text-xs uppercase tracking-[0.3em] text-marigold-light">Films</p>
         <h2 class="font-display text-3xl leading-tight sm:text-4xl">
           Relive Your Wedding Through Cinema
@@ -159,7 +163,7 @@ const testimonials = [
         </p>
         <a
           href="/films"
-          class="mt-6 inline-block border-b border-marigold-light text-sm uppercase tracking-[0.14em] text-marigold-light"
+          class="mt-6 inline-block border-b border-marigold-light text-sm uppercase tracking-[0.14em] text-marigold-light hover:text-white hover:border-white transition-colors"
         >
           Watch Our Films &rarr;
         </a>
@@ -168,17 +172,17 @@ const testimonials = [
   </section>
 
   <!-- Why Choose Us -->
-  <section class="px-6 py-24 md:px-10">
+  <section class="px-6 py-24 md:px-10 overflow-hidden">
     <div class="mx-auto max-w-6xl">
-      <p class="mb-3 text-center text-xs uppercase tracking-[0.3em] text-wine">Why Choose Us</p>
-      <h2 class="mx-auto max-w-2xl text-center font-display text-3xl leading-tight sm:text-4xl">
+      <p class="mb-3 text-center text-xs uppercase tracking-[0.3em] text-wine reveal-on-scroll">Why Choose Us</p>
+      <h2 class="mx-auto max-w-2xl text-center font-display text-3xl leading-tight sm:text-4xl reveal-on-scroll reveal-delay-100">
         Twelve reasons couples trust us with their day
       </h2>
 
       <ul class="mt-14 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 md:grid-cols-4">
         {
-          whyChooseUs.map((item) => (
-            <li class="border-t border-ink/10 pt-4 text-sm leading-snug text-ink/80">
+          whyChooseUs.map((item, index) => (
+            <li class={`reveal-on-scroll border-t border-ink/10 pt-4 text-sm leading-snug text-ink/80 reveal-delay-${(index % 4) * 150 + 100}`}>
               {item}
             </li>
           ))
@@ -188,17 +192,17 @@ const testimonials = [
   </section>
 
   <!-- Our Process — numbered because it's a real, ordered sequence -->
-  <section class="bg-blush px-6 py-24 md:px-10">
+  <section class="bg-blush px-6 py-24 md:px-10 overflow-hidden">
     <div class="mx-auto max-w-6xl">
-      <p class="mb-3 text-xs uppercase tracking-[0.3em] text-wine">Our Process</p>
-      <h2 class="max-w-xl font-display text-3xl leading-tight sm:text-4xl">
+      <p class="mb-3 text-xs uppercase tracking-[0.3em] text-wine reveal-on-scroll">Our Process</p>
+      <h2 class="max-w-xl font-display text-3xl leading-tight sm:text-4xl reveal-on-scroll reveal-delay-100">
         From first conversation to final delivery
       </h2>
 
       <ol class="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
         {
-          process.map((step) => (
-            <li>
+          process.map((step, index) => (
+            <li class={`reveal-on-scroll reveal-delay-${index * 150 + 100}`}>
               <span class="font-display text-3xl text-marigold">{step.n}</span>
               <p class="mt-3 font-display text-lg">{step.title}</p>
               <p class="mt-2 text-sm leading-relaxed text-ink/70">{step.copy}</p>
@@ -207,7 +211,7 @@ const testimonials = [
         }
       </ol>
 
-      <p class="mx-auto mt-16 max-w-xl text-center font-display text-xl italic leading-snug">
+      <p class="mx-auto mt-16 max-w-xl text-center font-display text-xl italic leading-snug reveal-on-scroll">
         "We believe photographs should make you feel something — years from
         today, exactly as you lived it."
       </p>
@@ -215,12 +219,18 @@ const testimonials = [
   </section>
 
   <!-- Numbers -->
-  <section class="bg-ink px-6 py-20 text-ivory md:px-10">
-    <div class="mx-auto grid max-w-6xl grid-cols-2 gap-10 text-center md:grid-cols-4">
+  <section id="stats-section" class="bg-ink px-6 py-20 text-ivory md:px-10">
+    <div class="mx-auto grid max-w-6xl grid-cols-2 gap-10 text-center md:grid-cols-4 reveal-on-scroll">
       {
         numbers.map((n) => (
           <div>
-            <p class="font-display text-4xl text-marigold-light sm:text-5xl">{n.value}</p>
+            <p
+              class="font-display text-4xl text-marigold-light sm:text-5xl stat-value"
+              data-target={n.target}
+              data-suffix={n.suffix}
+            >
+              {n.value}
+            </p>
             <p class="mt-2 text-xs uppercase tracking-[0.14em] text-ivory/60">{n.label}</p>
           </div>
         ))
@@ -229,15 +239,15 @@ const testimonials = [
   </section>
 
   <!-- Testimonials -->
-  <section class="px-6 py-24 md:px-10">
+  <section class="px-6 py-24 md:px-10 overflow-hidden">
     <div class="mx-auto max-w-4xl text-center">
-      <p class="mb-3 text-xs uppercase tracking-[0.3em] text-wine">Testimonials</p>
-      <h2 class="font-display text-3xl leading-tight sm:text-4xl">In their words</h2>
+      <p class="mb-3 text-xs uppercase tracking-[0.3em] text-wine reveal-on-scroll">Testimonials</p>
+      <h2 class="font-display text-3xl leading-tight sm:text-4xl reveal-on-scroll reveal-delay-100">In their words</h2>
 
       <div class="mt-14 grid gap-10 sm:grid-cols-2">
         {
-          testimonials.slice(0, 4).map((t) => (
-            <blockquote class="text-left">
+          testimonials.slice(0, 4).map((t, index) => (
+            <blockquote class={`reveal-on-scroll text-left reveal-delay-${(index % 2) * 200 + 100}`}>
               <p class="text-marigold">★★★★★</p>
               <p class="mt-3 leading-relaxed text-ink/80">"{t}"</p>
             </blockquote>
@@ -248,7 +258,7 @@ const testimonials = [
   </section>
 
   <!-- CTA -->
-  <section class="relative overflow-hidden bg-wine px-6 py-28 text-center text-ivory md:px-10">
+  <section class="relative overflow-hidden bg-wine px-6 py-28 text-center text-ivory md:px-10 reveal-on-scroll">
     <h2 class="mx-auto max-w-xl font-display text-3xl leading-tight sm:text-4xl">
       Let's create something beautiful together.
     </h2>
@@ -258,9 +268,63 @@ const testimonials = [
     </p>
     <a
       href="/contact"
-      class="mt-8 inline-block rounded-full bg-marigold-light px-8 py-3 text-sm uppercase tracking-[0.14em] text-ink transition hover:bg-ivory"
+      class="mt-8 inline-block rounded-full bg-marigold-light px-8 py-3 text-sm uppercase tracking-[0.14em] text-ink transition hover:bg-ivory hover:scale-105 duration-300"
     >
       Start the Conversation
     </a>
   </section>
 </Layout>
+
+<script>
+  const setupStatsCounter = () => {
+    const statsSection = document.getElementById("stats-section");
+    if (!statsSection) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const elements = entry.target.querySelectorAll(".stat-value");
+            elements.forEach((el) => {
+              const targetAttr = el.getAttribute("data-target");
+              if (!targetAttr) return;
+
+              const target = parseInt(targetAttr, 10);
+              const suffix = el.getAttribute("data-suffix") || "";
+              let start = 0;
+              const duration = 2000; // ms
+              const startTime = performance.now();
+
+              const updateCount = (now: number) => {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Ease out quad
+                const ease = progress * (2 - progress);
+                const currentVal = Math.floor(ease * target);
+                
+                el.textContent = `${currentVal}${suffix}`;
+
+                if (progress < 1) {
+                  requestAnimationFrame(updateCount);
+                } else {
+                  el.textContent = `${target}${suffix}`;
+                }
+              };
+
+              requestAnimationFrame(updateCount);
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(statsSection);
+  };
+
+  // Bind count-up script to layout loading events
+  setupStatsCounter();
+  document.addEventListener("astro:after-swap", setupStatsCounter);
+</script>
