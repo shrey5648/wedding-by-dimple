@@ -1,19 +1,33 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+
+import svcWedding from "../assets/Portfolio/wedding/DSC07451.JPG";
+import svcFilms from "../assets/Portfolio/wedding/DSC07464.JPG";
+import svcPreWedding from "../assets/Portfolio/Prewedding/DSC03963 - Copy.JPG";
+import svcEngagement from "../assets/Portfolio/Engagement/DSC01548.JPG";
+import svcHaldi from "../assets/Portfolio/Haldi & Mahendi/DSC05464.JPG";
+import svcMehendi from "../assets/Portfolio/Haldi & Mahendi/DSC05259.JPG";
+import svcSangeet from "../assets/Portfolio/Haldi & Mahendi/DSC05473.JPG";
+import svcBridal from "../assets/Portfolio/Portraits/DSC03772.JPG";
+import svcCouple from "../assets/Portfolio/Portraits/DSC04048.JPG";
+import svcBabyShower from "../assets/Service/Baby shower/_DIM0763.JPG";
+import svcMaternity from "../assets/Service/Maternity/02 copy.jpg";
+import svcFamily from "../assets/Service/Family Event/SWF_6876.JPG";
 
 const services = [
-  { title: "Wedding Photography", copy: "Elegant storytelling through timeless photographs that preserve every emotion of your wedding day.", seed: "svc-1" },
-  { title: "Cinematic Wedding Films", copy: "Beautiful storytelling with cinematic visuals and emotional music.", seed: "svc-2" },
-  { title: "Pre Wedding", copy: "Celebrate your journey together with creative concepts and stunning outdoor or destination shoots.", seed: "svc-3" },
-  { title: "Engagement", copy: "Elegant coverage for your special beginning.", seed: "svc-4" },
-  { title: "Haldi & Mehendi", copy: "Colourful moments, joyful traditions, and candid laughter captured naturally.", seed: "svc-5" },
-  { title: "Mehendi Ceremony", copy: "Every intricate detail, every smile, and every celebration documented naturally.", seed: "svc-6" },
-  { title: "Sangeet & Musical Night", copy: "Energetic performances, dancing, and unforgettable celebrations preserved forever.", seed: "svc-7" },
-  { title: "Bridal Portraits", copy: "Grace, elegance, confidence, and timeless beauty in every frame.", seed: "svc-8" },
-  { title: "Couple Portrait Session", copy: "Romantic portraits that reflect your love, connection, and personalities.", seed: "svc-9" },
-  { title: "Baby Shower", copy: "Celebrating the beginning of a beautiful journey.", seed: "svc-10" },
-  { title: "Maternity Photography", copy: "Capturing the beauty of motherhood.", seed: "svc-11" },
-  { title: "Family Events", copy: "Birthday, Anniversary, Naming Ceremony and all special occasions.", seed: "svc-12" },
+  { title: "Wedding Photography", copy: "Elegant storytelling through timeless photographs that preserve every emotion of your wedding day.", image: svcWedding },
+  { title: "Cinematic Wedding Films", copy: "Beautiful storytelling with cinematic visuals and emotional music.", image: svcFilms },
+  { title: "Pre Wedding", copy: "Celebrate your journey together with creative concepts and stunning outdoor or destination shoots.", image: svcPreWedding },
+  { title: "Engagement", copy: "Elegant coverage for your special beginning.", image: svcEngagement },
+  { title: "Haldi & Mehendi", copy: "Colourful moments, joyful traditions, and candid laughter captured naturally.", image: svcHaldi },
+  { title: "Mehendi Ceremony", copy: "Every intricate detail, every smile, and every celebration documented naturally.", image: svcMehendi },
+  { title: "Sangeet & Musical Night", copy: "Energetic performances, dancing, and unforgettable celebrations preserved forever.", image: svcSangeet },
+  { title: "Bridal Portraits", copy: "Grace, elegance, confidence, and timeless beauty in every frame.", image: svcBridal },
+  { title: "Couple Portrait Session", copy: "Romantic portraits that reflect your love, connection, and personalities.", image: svcCouple },
+  { title: "Baby Shower", copy: "Celebrating the beginning of a beautiful journey.", image: svcBabyShower },
+  { title: "Maternity Photography", copy: "Capturing the beauty of motherhood.", image: svcMaternity },
+  { title: "Family Events", copy: "Birthday, Anniversary, Naming Ceremony and all special occasions.", image: svcFamily },
 ];
 ---
 
@@ -34,13 +48,13 @@ const services = [
         services.map((s, index) => (
           <div class={`reveal-on-scroll reveal-delay-${(index % 3) * 150 + 100} group`}>
             <div class="overflow-hidden rounded-sm">
-              <img
-                src={`https://picsum.photos/seed/${s.seed}/600/440`}
+              <Image
+                src={s.image}
                 alt={s.title}
                 class="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
-                width="600"
-                height="440"
+                width={600}
+                height={440}
               />
             </div>
             <p class="mt-4 font-display text-xl text-ink font-medium">{s.title}</p>

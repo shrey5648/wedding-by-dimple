@@ -1,6 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Flourish from "../components/Flourish.astro";
+import HeroSlider from "../components/HeroSlider.astro";
+import { Image } from "astro:assets";
+import story1 from "../assets/DSC03735.JPG";
+import story2 from "../assets/DSC05806.JPG";
+import teaserVideo from "../assets/teaser_1.mp4";
 
 const whyChooseUs = [
   "Emotion First",
@@ -45,51 +50,7 @@ const testimonials = [
   title="Home"
   description="Wedding by Dimple — candid and cinematic wedding photography and films, available across India."
 >
-  <!-- Hero: the thesis. A full-bleed frame from a real wedding, the line
-       that defines the brand, and nothing competing for attention. -->
-  <section class="relative flex min-h-[92vh] items-end overflow-hidden bg-ink">
-    <img
-      src="https://picsum.photos/seed/wedding-hero/1800/1200"
-      alt="Bride and groom candid moment"
-      class="absolute inset-0 h-full w-full object-cover opacity-80 animate-kenburns"
-      width="1800"
-      height="1200"
-    />
-    <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-ink/10"></div>
-
-    <div class="relative z-10 mx-auto max-w-4xl px-6 pb-20 pt-40 text-center md:px-10">
-      <p class="mb-5 text-xs uppercase tracking-[0.3em] text-marigold-light reveal-on-scroll">
-        Wedding Photography &amp; Films · India
-      </p>
-      <h1 class="font-display text-4xl leading-[1.1] text-ivory sm:text-5xl md:text-6xl reveal-on-scroll reveal-delay-100">
-        <span class="word-mask"><span class="word-item">Capturing</span></span>
-        <span class="word-mask"><span class="word-item text-marigold-light">Love.</span></span>
-        <br />
-        <span class="word-mask"><span class="word-item">Preserving</span></span>
-        <span class="word-mask"><span class="word-item text-marigold-light">Forever.</span></span>
-      </h1>
-      <p class="mx-auto mt-6 max-w-xl text-balance text-ivory/80 reveal-on-scroll reveal-delay-200">
-        We don't just capture weddings. We preserve emotions forever.
-      </p>
-      <p class="mx-auto mt-3 max-w-md font-display text-lg italic text-ivory/60 reveal-on-scroll reveal-delay-300">
-        "We arrive as your photographers, but we leave as a part of your family."
-      </p>
-      <div class="mt-10 flex flex-wrap items-center justify-center gap-4 reveal-on-scroll reveal-delay-400">
-        <a
-          href="/portfolio"
-          class="magnetic-btn rounded-full bg-marigold-light px-7 py-3 text-sm uppercase tracking-[0.14em] text-ink transition hover:bg-ivory hover:scale-105 duration-300"
-        >
-          View Portfolio
-        </a>
-        <a
-          href="/contact"
-          class="magnetic-btn rounded-full border border-ivory/40 px-7 py-3 text-sm uppercase tracking-[0.14em] text-ivory transition hover:border-ivory hover:scale-105 duration-300"
-        >
-          Enquire Now
-        </a>
-      </div>
-    </div>
-  </section>
+  <HeroSlider />
 
   <!-- Real Stories teaser -->
   <section class="px-6 py-24 md:px-10 overflow-hidden">
@@ -112,21 +73,21 @@ const testimonials = [
           </a>
         </div>
         <div class="grid grid-cols-2 gap-4">
-          <img
-            src="https://picsum.photos/seed/story-1/500/650"
+          <Image
+            src={story1}
             alt="Wedding ritual candid moment"
             class="h-full w-full rounded-sm object-cover reveal-on-scroll"
             loading="lazy"
-            width="500"
-            height="650"
+            width={500}
+            height={650}
           />
-          <img
-            src="https://picsum.photos/seed/story-2/500/400"
+          <Image
+            src={story2}
             alt="Couple laughing candidly"
             class="mt-8 h-full w-full rounded-sm object-cover reveal-on-scroll reveal-delay-200"
             loading="lazy"
-            width="500"
-            height="400"
+            width={500}
+            height={400}
           />
         </div>
       </div>
@@ -138,14 +99,14 @@ const testimonials = [
   <!-- Films -->
   <section class="bg-ink px-6 py-24 text-ivory md:px-10 overflow-hidden">
     <div class="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-2">
-      <img
-        src="https://picsum.photos/seed/films-still/800/560"
-        alt="Still frame from a cinematic wedding film"
+      <video
+        src={teaserVideo}
+        autoplay
+        loop
+        muted
+        playsinline
         class="aspect-video w-full rounded-sm object-cover reveal-on-scroll"
-        loading="lazy"
-        width="800"
-        height="560"
-      />
+      ></video>
       <div class="reveal-on-scroll reveal-delay-200">
         <p class="mb-3 text-xs uppercase tracking-[0.3em] text-marigold-light">Films</p>
         <h2 class="font-display text-3xl leading-tight sm:text-4xl">

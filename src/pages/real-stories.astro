@@ -1,13 +1,21 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+
+import dhyeyRuchitaImg from "../assets/Real story/Dhyey Ruchita/DSC05806.JPG";
+import bhumikaAnkitImg from "../assets/Real story/Bhumika Ankit/DSC03735.JPG";
+import dipaliSagarImg from "../assets/Real story/Dipali & Sagar/DSC01566.JPG";
+import geetChiragImg from "../assets/Real story/Geet & Chirag/KRU02424.JPG";
+import jayPragyaImg from "../assets/Real story/Jay & Pragya/KAM09050.JPG";
+import jenishKrishitaImg from "../assets/Real story/Jenish Krishita/DVK04282.JPG";
 
 const stories = [
-  { names: "Riya & Kunal", place: "Udaipur, Rajasthan", seed: "rs-1" },
-  { names: "Sneha & Aarav", place: "Ahmedabad, Gujarat", seed: "rs-2" },
-  { names: "Priya & Dev", place: "Goa", seed: "rs-3" },
-  { names: "Meera & Rohan", place: "Jaipur, Rajasthan", seed: "rs-4" },
-  { names: "Anjali & Vivaan", place: "Mumbai, Maharashtra", seed: "rs-5" },
-  { names: "Kavya & Aditya", place: "Rajkot, Gujarat", seed: "rs-6" },
+  { names: "Dhyey & Ruchita", place: "Ahmedabad, Gujarat", image: dhyeyRuchitaImg },
+  { names: "Bhumika & Ankit", place: "Udaipur, Rajasthan", image: bhumikaAnkitImg },
+  { names: "Dipali & Sagar", place: "Goa", image: dipaliSagarImg },
+  { names: "Geet & Chirag", place: "Jaipur, Rajasthan", image: geetChiragImg },
+  { names: "Jay & Pragya", place: "Mumbai, Maharashtra", image: jayPragyaImg },
+  { names: "Jenish & Krishita", place: "Rajkot, Gujarat", image: jenishKrishitaImg },
 ];
 ---
 
@@ -33,13 +41,13 @@ const stories = [
             ]}
           >
             <div class="overflow-hidden rounded-sm">
-              <img
-                src={`https://picsum.photos/seed/${story.seed}/700/560`}
+              <Image
+                src={story.image}
                 alt={`Wedding of ${story.names}`}
                 class="aspect-[5/4] w-full object-cover transition-transform duration-750 hover:scale-105"
                 loading="lazy"
-                width="700"
-                height="560"
+                width={700}
+                height={560}
               />
             </div>
             <div class="reveal-on-scroll reveal-delay-200">

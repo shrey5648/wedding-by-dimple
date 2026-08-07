@@ -1,15 +1,38 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
 
 const categories = ["All", "Weddings", "Pre-Wedding", "Engagement", "Portraits", "Haldi & Mehendi"];
 
-const gallery = Array.from({ length: 18 }).map((_, i) => {
-  // Deterministically assign a category to each demo image
-  const catIndex = (i % (categories.length - 1)) + 1;
+// Eagerly load all image files matching portfolio folder categories
+const allImageFiles = import.meta.glob("../assets/Portfolio/**/*.{jpeg,jpg,png,gif,JPG,PNG}", { eager: true });
+
+// Map local assets dynamically to the gallery items
+const gallery = Object.keys(allImageFiles).map((path, index) => {
+  const parts = path.split('/');
+  const folder = parts[parts.length - 2];
+  
+  let category = "All";
+  const folderLower = folder.toLowerCase();
+  if (folderLower === "wedding") {
+    category = "Weddings";
+  } else if (folderLower === "prewedding") {
+    category = "Pre-Wedding";
+  } else if (folderLower === "engagement") {
+    category = "Engagement";
+  } else if (folderLower === "portraits") {
+    category = "Portraits";
+  } else if (folderLower === "haldi & mahendi") {
+    category = "Haldi & Mehendi";
+  }
+  
+  // @ts-ignore
+  const imageAsset = allImageFiles[path].default;
+  
   return {
-    seed: `portfolio-${i + 1}`,
-    tall: i % 5 === 0,
-    category: categories[catIndex],
+    image: imageAsset,
+    category: category,
+    tall: index % 4 === 0, // Mix aspect ratios for standard masonry layout
   };
 });
 ---
@@ -54,12 +77,12 @@ const gallery = Array.from({ length: 18 }).map((_, i) => {
             data-category={img.category}
             data-index={i}
           >
-            <img
-              src={`https://picsum.photos/seed/${img.seed}/700/${img.tall ? 950 : 700}`}
+            <Image
+              src={img.image}
               alt={`Wedding photography by Wedding by Dimple - ${img.category}`}
               class="w-full rounded-sm object-cover transition-transform duration-700 group-hover:scale-105"
               loading="lazy"
-              width="700"
+              width={700}
               height={img.tall ? 950 : 700}
             />
             <div class="absolute inset-0 bg-ink/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
