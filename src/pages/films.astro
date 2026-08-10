@@ -67,14 +67,13 @@ const films = [
             data-video-title={film.title}
           >
             <div class="tilt-card relative aspect-video overflow-hidden rounded-sm bg-ink reveal-on-scroll" style={`transition-delay: ${index * 150}ms`}>
-              <img
-                src={`https://picsum.photos/seed/${film.seed}/800/450`}
-                alt={`Wedding film still — ${film.title}`}
+              <video
+                src={film.videoUrl}
+                preload="metadata"
+                muted
+                playsinline
                 class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                loading="lazy"
-                width="800"
-                height="450"
-              />
+              ></video>
               <div class="absolute inset-0 flex items-center justify-center bg-ink/30 transition group-hover:bg-ink/40">
                 <span class="flex h-14 w-14 items-center justify-center rounded-full bg-ivory/95 text-ink transition-transform duration-300 group-hover:scale-110 group-hover:bg-marigold-light group-hover:text-ink shadow-md">
                   ▶
@@ -155,6 +154,22 @@ const films = [
     };
 
     filmCards.forEach((card) => {
+      const cardVideo = card.querySelector("video") as HTMLVideoElement | null;
+
+      card.addEventListener("mouseenter", () => {
+        if (cardVideo) {
+          cardVideo.play().catch((err) => {
+            console.log("Hover preview play blocked: ", err);
+          });
+        }
+      });
+
+      card.addEventListener("mouseleave", () => {
+        if (cardVideo) {
+          cardVideo.pause();
+        }
+      });
+
       card.addEventListener("click", () => {
         const videoUrl = card.getAttribute("data-video-src");
         if (videoUrl) {
